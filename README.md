@@ -1,6 +1,5 @@
 # EIST-Projekt 2022
 ## whattocook
----
 What to cook ist eine Webapp, die dem Nutzer die tägliche Frage: "Was koche ich heute?" abnehmen soll.
 
 Dazu werden aus den Zutaten im Kühlschrank des Nutzers Rezepte generiert, die dieser sofort nachmachen kann.
