@@ -31,6 +31,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public Optional<Item> findByName(String name) {
+        return itemRepository.findByName(name);
+    }
+
+    @Override
     public List<Item> findAll() {
         return itemRepository.findAll();
     }
