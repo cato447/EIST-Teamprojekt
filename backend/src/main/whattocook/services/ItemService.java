@@ -1,6 +1,6 @@
-package backend.services;
+package whattocook.services;
 
-import backend.models.Item;
+import whattocook.models.Item;
 
 import java.util.List;
 import java.util.Optional;

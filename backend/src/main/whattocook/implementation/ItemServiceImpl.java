@@ -1,10 +1,10 @@
-package backend.implementation;
+package whattocook.implementation;
 
-import backend.models.Item;
+import whattocook.models.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import backend.repositories.ItemRepository;
-import backend.services.ItemService;
+import whattocook.repositories.ItemRepository;
+import whattocook.services.ItemService;
 
 import java.util.List;
 import java.util.Optional;

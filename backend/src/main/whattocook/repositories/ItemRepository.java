@@ -1,6 +1,6 @@
-package backend.repositories;
+package whattocook.repositories;
 
-import backend.models.Item;
+import whattocook.models.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

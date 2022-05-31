@@ -1,4 +1,4 @@
-package backend.models;
+package whattocook.models;
 
 public enum Unit {
     GRAMMS,

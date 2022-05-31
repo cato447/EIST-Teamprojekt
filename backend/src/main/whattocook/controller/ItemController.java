@@ -1,16 +1,18 @@
-package backend.controller;
+package whattocook.controller;
 
-import backend.exception.ItemNotFoundException;
+import whattocook.exception.ItemNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import backend.models.Item;
+import whattocook.models.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import backend.services.ItemService;
+import whattocook.models.Unit;
+import whattocook.services.ItemService;
 
 import java.util.List;
 
 @Slf4j
-@RestController
+@RestController()
+@RequestMapping("/api/v1")
 public class ItemController {
 
     @Autowired
@@ -32,9 +34,9 @@ public class ItemController {
     }
 
     @PostMapping("/items")
-    public String createItem(@RequestBody Item item) {
+    public Item createItem(@RequestBody Item item) {
         itemService.save(item);
-        return "Item added";
+        return item;
     }
 
     @PutMapping("/items/{itemId}")
