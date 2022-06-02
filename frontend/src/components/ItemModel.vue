@@ -84,14 +84,14 @@
 
         api.createNew(components[0],
                       parseInt(components[1].replace ( /[^\d.]/g, '' )),
-                      components[1].replace(/[0-9]/g, ''))
-          .then( (response) => {  
+                      components[1].replace(/[0-9]/g, '') === 'ml' ? 'MILLILETERS' : "GRAMMS"
+          ).then( (response) => {  
           this.$log.debug("New item created:", response);  
           this.items.push({  
               id: response.data.id,  
               name: components[0],
               quantity: parseInt(components[1].replace ( /[^\d.]/g, '' )),
-              unit: components[1].replace(/[0-9]/g, '')
+              unit: components[1].replace(/[0-9]/g, '') === 'MILLILETERS' ? 'ml' : 'g'
           })  
           }).catch((error) => {  
             this.$log.debug(error);  

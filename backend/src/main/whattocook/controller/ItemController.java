@@ -5,14 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import whattocook.models.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import whattocook.models.Unit;
 import whattocook.services.ItemService;
 
 import java.util.List;
-
 @Slf4j
 @RestController()
-@RequestMapping("/api/v1")
 public class ItemController {
 
     @Autowired

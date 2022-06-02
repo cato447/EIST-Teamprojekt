@@ -10,7 +10,11 @@ const instance = axios.create({
 export default {
     createNew: (name, quantity, unit) => instance.post("/api/v1/items", {name: name, quantity : quantity, unit : unit}),
 
-    getAll: () => instance.get('/api/v1/items'),
+    getAll: () => instance.get('/api/v1/items', {  
+        transformResponse: [function (data) {  
+          return data? JSON.parse(data)._embedded.items : data;  
+        }]  
+      }), 
 
     removeForId: (id) => instance.delete('/api/v1/items/'+ id)
 }
