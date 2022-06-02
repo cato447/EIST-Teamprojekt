@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      UPSTREAM: git@github.com:babyygemperor/test-repo.git
+      UPSTREAM: ssh://git@bitbucket.ase.in.tum.de:7999/EIST22T02/eist22t02-whattocool48.git
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
