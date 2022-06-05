@@ -49,9 +49,7 @@ jobs:
         run: git config --global user.email "organisation-name@github.com" && git config --global user.name "GitHub Action Runner"
       
       - name: Fix merge conflicts if any
-        run: |
-          git checkout --theirs .
-          git add .
+        run: git pull -s recursive -X ours upstream main
         
       - name: Git push to other repo
         run: git push upstream
