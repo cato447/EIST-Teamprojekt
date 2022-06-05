@@ -32,13 +32,13 @@ public class ItemController {
 
     @PostMapping("/items")
     public Item createItem(@RequestBody Item item) {
-        itemService.save(item);
-        return item;
+       return itemService.save(item);
+
     }
 
     @PutMapping("/items/{itemId}")
-    public String updateItem(@PathVariable(value = "itemId") Long itemId, @RequestBody Item item) {
-        return itemService.findById(itemId).map(i -> {
+    public void updateItem(@PathVariable(value = "itemId") Long itemId, @RequestBody Item item) {
+         itemService.findById(itemId).map(i -> {
             i.setName(item.getName());
             i.setQuantity(item.getQuantity());
             i.setUnit(item.getUnit());
@@ -48,8 +48,8 @@ public class ItemController {
     }
 
     @DeleteMapping("/items/{itemId}")
-    public String deleteItem(@PathVariable(value = "itemId") Long itemId) {
-        return itemService.findById(itemId).map(p -> {
+    public void deleteItem(@PathVariable(value = "itemId") Long itemId) {
+         itemService.findById(itemId).map(p -> {
             itemService.deleteById(itemId);
             return "Item deleted";
         }).orElseThrow(() -> new ItemNotFoundException("itemId " + itemId + " not found"));
