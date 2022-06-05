@@ -53,7 +53,7 @@ sourceSets {
             srcDir 'backend/src/test/java'
         }
         resources {
-            'backend/src/test/resources'
+            srcDir 'backend/src/test/resources'
         }
     }
 }
