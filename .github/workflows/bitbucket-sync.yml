@@ -54,4 +54,4 @@ jobs:
         run: git pull --rebase upstream main
         
       - name: Git push to other repo
-        run: git push upstream
+        run: git push upstream HEAD:main
