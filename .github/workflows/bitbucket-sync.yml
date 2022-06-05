@@ -21,7 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      UPSTREAM: ssh://git@bitbucket.ase.in.tum.de:7999/eist22t02/eist22t02-whattocool48.git
+      UPSTREAM: git@github.com:babyygemperor/test-repo.git
+      BITBUCKET_PUB_KEY: "[bitbucket.ase.in.tum.de]:7999,[131.159.89.140]:7999 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCO2i69e5LJibEDwVrwG9edX+xqeRB/Do+C8dNclgB5lFJjA5MlTFAZ4WewbLBeGXGAc5O64ckBlI82+FI1GwIkiKRoi/9qe+NGLmZFsjBRSz2fHLfKo/iEa8ytPP9E4iql1u7Rl+pnmY2claJ+ABQOt4XQgLWjYcIBHWpwhQ9tRjg73zUI/n/PKyEnODR14bEzJ/fBmTMgnm1ZdtSPViqLmByXgjgorCWPsRA3DrPsH3A9ncietUPj/qRbsWsPhiKK1yXXaKDHDgRD7ennVrwCAYG2hhTZEbZcjE8bbe9UY9WrRtoWLFKB/xDTn7pRv+ZxqXlcoP224we7J9s2ke1H"
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,8 +41,17 @@ jobs:
       - name: Copy ssh public_key
         run: echo "${{SECRETS.PUBLIC_KEY}}" > ~/.ssh/id_rsa.pub
         
-      - name: Pull upstream
+      - name: Add bitbucket to known SSH-HOST
+        run: echo ${{env.BITBUCKET_PUB_KEY}} >> ~/.ssh/known_hosts
+        
+      - name: Pull origin
         run: git fetch --unshallow
+        
+      - name: Specify Identity in case of rebasing
+        run: git config --global user.email "organisation-name@github.com" && git config --global user.name "GitHub Action Runner"
+      
+      - name: Fix merge conflicts if any
+        run: git pull --rebase upstream main
         
       - name: Git push to other repo
         run: git push upstream
