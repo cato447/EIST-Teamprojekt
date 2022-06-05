@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Sync to bitbucket
+name: Test sync to bitbucket
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
+  pull_request:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -50,6 +50,4 @@ jobs:
       
       - name: Fix merge conflicts if any
         run: git pull --rebase upstream main
-        
-      - name: Git push to other repo
-        run: git push upstream
+
