@@ -50,7 +50,7 @@ jobs:
       
       - name: Fix merge conflicts if any
         run: |
-          git checkout --ours .
+          git checkout --theirs .
           git add .
         
       - name: Git push to other repo
