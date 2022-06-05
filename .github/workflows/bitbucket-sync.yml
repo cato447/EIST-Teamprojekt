@@ -35,9 +35,9 @@ jobs:
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.5.4
         with:
+          port: 7999
           ssh-private-key: |
             ${{ secrets.PRIVATE_KEY }}
-          port: 7999
         
       - name: Copy ssh public_key
         run: echo "${{SECRETS.PUBLIC_KEY}}" > ~/.ssh/id_rsa.pub
