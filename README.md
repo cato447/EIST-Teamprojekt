@@ -11,4 +11,4 @@ This webapp shows you meals you can cook from the ingredients you have at hand
 Student project at TUM for EIST
 
 ~ cato
-:D
+:D:D
