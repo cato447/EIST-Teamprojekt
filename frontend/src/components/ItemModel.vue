@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1 class="email">{{userEmail}}</h1>
+    <h1 class="email">{{ userEmail }}</h1>
     <section class="itemapp">
       <div v-if="loading">
         <h1 class="loading">Loading...</h1>
@@ -38,21 +38,24 @@
         <!-- input field -->
 
         <header class="inputField-header">
-          <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder=" " v-model="newItem" @keyup.enter="addItem"/>
+          <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder=" " v-model="newItem"
+                 @keyup.enter="addItem"/>
           <label for="inputTextField" class="formLabel">
-            Add here
+            Add here ...
           </label>
         </header>
 
-        <section class="main" v-show="items.length" v-cloak>
+        <!-- response element -->
+
+        <section class="item-section" v-show="items.length" v-cloak>
           <ul class="item-list">
             <li v-for="item in items"
                 class="item"
                 :key="item.id">
-                <div class="view">
-                  <label @dblclick="editItem(item)">{{ item.name }} {{ item.quantity }}{{ item.unit }}</label>
-                  <button class="destroy" @click="removeItem(item)">❌</button>
-                </div>
+              <div class="view">
+                <label @dblclick="editItem(item)">{{ item.name }} {{ item.quantity }}{{ item.unit }}</label>
+                <button class="destroy" @click="removeItem(item)">❌</button>
+              </div>
             </li>
           </ul>
         </section>
@@ -65,96 +68,95 @@
 
 <script>
 
-  import api from '../Api';
+import api from '../Api';
 
-  const Items = {
-    name: 'Items',
-    props: {
-      activeUser: Object
-    },
-    
-    // app initial state
-    data: function() {
-      return {
-        items: [],
-        newItem: '',
-        editedItem: null,
-        loading: true,
-        error: null,
-        id: 0
-      }
-    },
+const Items = {
+  name: 'Items',
+  props: {
+    activeUser: Object
+  },
 
-    mounted() {
-      api.getAll()
-          .then(response => {
-            this.$log.debug("Data loaded: ", response.data)
-            this.items = response.data
-      })
+  // app initial state
+  data: function () {
+    return {
+      items: [],
+      newItem: '',
+      editedItem: null,
+      loading: true,
+      error: null,
+      id: 0
+    }
+  },
+
+  mounted() {
+    api.getAll()
+        .then(response => {
+          this.$log.debug("Data loaded: ", response.data)
+          this.items = response.data
+        })
         .catch(error => {
           this.$log.debug(error)
           this.error = "Failed to load items"
-      })
-        .finally(() => this.loading = false)
-    },
-
-    computed: {
-      userEmail: function () {
-        return this.activeUser ? this.activeUser.email : ''
-      },
-      inputPlaceholder: function () {
-        return this.activeUser ? this.activeUser.given_name + ', what do you want to add?' : 'What needs to be added'
-      }
-    },
-
-    methods: {
-      addItem: function () {
-        var value = this.newItem && this.newItem.trim()
-        if (!value) {
-          return
-        }
-        
-        var components = value.split(' ')
-
-        api.createNew(components[0],
-                      parseInt(components[1].replace ( /[^\d.]/g, '' )),
-                      components[1].replace(/[0-9]/g, '') === 'ml' ? 'MILLILETERS' : "GRAMMS"
-          ).then( (response) => {  
-          this.$log.debug("New item created:", response);  
-          this.items.push({  
-              id: response.data.id,  
-              name: components[0],
-              quantity: parseInt(components[1].replace ( /[^\d.]/g, '' )),
-              unit: components[1].replace(/[0-9]/g, '') === 'MILLILETERS' ? 'ml' : 'g'
-          })  
-          }).catch((error) => {  
-            this.$log.debug(error);  
-          this.error = "Failed to add item"  
-        });
-
-        this.newItem = ''
-      },
-
-      removeItem: function (item) { // notice NOT using "=>" syntax
-        api.removeForId(item.id).then(() => {
-          this.$log.debug("Item removed:", item);
-          this.items.splice(this.items.indexOf(item), 1)
-        }).catch((error) => {
-          this.$log.debug(error);
-          this.error = "Failed to remove item"
         })
+        .finally(() => this.loading = false)
+  },
+
+  computed: {
+    userEmail: function () {
+      return this.activeUser ? this.activeUser.email : ''
+    },
+    inputPlaceholder: function () {
+      return this.activeUser ? this.activeUser.given_name + ', what do you want to add?' : 'What needs to be added'
+    }
+  },
+
+  methods: {
+    addItem: function () {
+      var value = this.newItem && this.newItem.trim()
+      if (!value) {
+        return
       }
+
+      var components = value.split(' ')
+
+      api.createNew(components[0],
+          parseInt(components[1].replace(/[^\d.]/g, '')),
+          components[1].replace(/[0-9]/g, '') === 'ml' ? 'MILLILETERS' : "GRAMMS"
+      ).then((response) => {
+        this.$log.debug("New item created:", response);
+        this.items.push({
+          id: response.data.id,
+          name: components[0],
+          quantity: parseInt(components[1].replace(/[^\d.]/g, '')),
+          unit: components[1].replace(/[0-9]/g, '') === 'MILLILETERS' ? 'ml' : 'g'
+        })
+      }).catch((error) => {
+        this.$log.debug(error);
+        this.error = "Failed to add item"
+      });
+
+      this.newItem = ''
     },
 
-    directives: {
-      'item-focus': function (el, binding) {
-        if (binding.value) {
-          el.focus()
-        }
+    removeItem: function (item) { // notice NOT using "=>" syntax
+      api.removeForId(item.id).then(() => {
+        this.$log.debug("Item removed:", item);
+        this.items.splice(this.items.indexOf(item), 1)
+      }).catch((error) => {
+        this.$log.debug(error);
+        this.error = "Failed to remove item"
+      })
+    }
+  },
+
+  directives: {
+    'item-focus': function (el, binding) {
+      if (binding.value) {
+        el.focus()
       }
     }
-
- }
+  }
+}
 export default Items
 </script>
 
@@ -170,7 +172,7 @@ export default Items
   padding: 0;
 }
 
-.main{
+.main {
   font-family: 'Montserrat', sans-serif;
   height: 100vh;
   display: grid;
@@ -180,9 +182,19 @@ export default Items
   background-color: darkcyan;
 }
 
+/* cursor styling */
+
+.cursor {
+  width: 1rem;
+  height: 1rem;
+  border: 0.15rem solid black;
+  border-radius: 100%;
+  position: absolute;
+}
+
 /* navbar styling */
 
-.navbar-header{
+.navbar-header {
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -194,99 +206,99 @@ export default Items
   color: black;
   z-index: 1;
 
-  a{
+  a {
     text-decoration: none;
     color: inherit;
     text-transform: uppercase;
     font-size: 2rem;
   }
 
-  .nav-links{
+  .nav-links {
     display: flex;
     list-style: none;
 
-    .nav-link{
-
-      a{
-        margin: 0.2rem;
-        padding: 1rem 0.5rem;
-      }
-
-      a:hover{
-        font-size: 3.5rem;
-
-      }
+    a {
+      margin: 0.2rem;
+      padding: 1rem 0.5rem;
+      transition: all 300ms;
     }
-  }
 
-  .menu-icon{
-    position: relative;
-    padding: 26px 10px;
-    cursor: pointer;
-    z-index: 1;
-    display: none;
-
-    &__line{
-      display: block;
-      position: relative;
-      background: black;
-      height: 5px;
-      width: 40px;
-      border-radius: 4px;
-
-      &::before, &::after{
-        content: '';
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        border-radius: 4px;
-        background: black;
-        transition: background .8s ease;
-      }
-
-      &::before{
-        transform: translateY(-10px);
-      }
-
-      &::after{
-        transform: translateY(10px);
-      }
+    a:hover {
+      font-size: 3.5rem;
+      transition: all 300ms;
     }
-  }
-
-  .menu-btn{
-    display: none;
   }
 }
 
-.logo:hover{
+.menu-icon {
+  position: relative;
+  padding: 26px 10px;
+  cursor: pointer;
+  z-index: 1;
+  display: none;
+
+  &__line {
+    display: block;
+    position: relative;
+    background: black;
+    height: 2.5px;
+    width: 3rem;
+    border-radius: 4px;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      border-radius: 4px;
+      background: black;
+      transition: background .8s ease;
+    }
+
+    &::before {
+      transform: translateY(-10px);
+    }
+
+    &::after {
+      transform: translateY(10px);
+    }
+  }
+}
+
+.menu-btn {
+  display: none;
+}
+
+
+.logo:hover {
   cursor: default;
 }
 
 @media screen {
 
-  .navbar-header{
+  .navbar-header {
 
-    .menu-icon{
+    .menu-icon {
       display: block;
+      font-weight: bold;
 
-      &__line{
-        animation: closedButton 0.8s backwards;
+      &__line {
+        animation: closedButton 1s backwards;
         animation-direction: reverse;
 
-        &::before{
-          animation: closedButtonBefore 0.8s backwards;
+        &::before {
+          animation: closedButtonBefore 1s backwards;
           animation-direction: reverse;
         }
 
-        &::after{
-          animation: closedButtonAfter 0.8s backwards;
+        &::after {
+          animation: closedButtonAfter 1s backwards;
           animation-direction: reverse;
         }
       }
     }
 
-    .nav-links{
+    .nav-links {
       position: absolute;
       top: -2.5rem;
       left: 0;
@@ -298,51 +310,52 @@ export default Items
       width: 100vw;
       height: 100vh;
       font-size: 2rem;
+      font-weight: bolder;
+      letter-spacing: 0.25rem;
       color: white;
       background: #272727;
 
-      transition:
-          opacity 0.8s 0.5s,
-          clip-path 1s 0.5s;
+      transition: opacity 0.8s 0.5s,
+      clip-path 1s 0.5s;
       clip-path: circle(200px at top right);
 
-      .nav-links{
+      .nav-links {
         opacity: 0;
         transform: translateX(100%);
         width: 100%;
         text-align: center;
 
-        a{
+        a {
           display: block;
           padding: 2rem 0;
         }
       }
     }
 
-    .menu-btn:checked ~ .nav-links{
+    .menu-btn:checked ~ .nav-links {
       opacity: 1;
       clip-path: circle(100% at center);
 
-      .nav-link{
+      .nav-link {
         opacity: 1;
         transform: translateX(0);
       }
     }
 
-    .menu-btn:checked ~ .menu-icon{
+    .menu-btn:checked ~ .menu-icon {
 
-      .menu-icon__line{
+      .menu-icon__line {
         background: white;
-        animation: openButton 0.8s forwards;
+        animation: openButton 1s forwards;
 
-        &::before{
+        &::before {
           background: white;
-          animation: openButtonBefore 0.8s forwards;
+          animation: openButtonBefore 1s forwards;
         }
 
-        &::after{
+        &::after {
           background: white;
-          animation: openButtonAfter 0.8s forwards;
+          animation: openButtonAfter 1s forwards;
         }
       }
     }
@@ -350,79 +363,79 @@ export default Items
 }
 
 @keyframes openButtonBefore {
-  0%{
+  0% {
     transform: translateY(-10px) rotate(0deg);
   }
-  50%{
+  50% {
     transform: translateY(0px) rotate(0deg);
   }
-  100%{
+  100% {
     transform: translateY(0px) rotate(90deg);
   }
 }
 
 @keyframes openButton {
-  50%{
+  50% {
     transform: rotate(0deg);
   }
-  100%{
+  100% {
     transform: rotate(45deg);
   }
 }
 
 @keyframes openButtonAfter {
-  0%{
+  0% {
     transform: translateY(10px) rotate(0deg);
   }
-  50%{
+  50% {
     transform: translateY(0px) rotate(0deg);
   }
-  100%{
+  100% {
     transform: translateY(0px) rotate(90deg);
   }
 }
 
 @keyframes closedButtonBefore {
-  0%{
+  0% {
     transform: translateY(-10px) rotate(0deg);
   }
-  50%{
+  50% {
     transform: translateY(0px) rotate(0deg);
   }
-  100%{
+  100% {
     transform: translateY(0px) rotate(90deg);
   }
 }
 
 @keyframes closedButton {
-  50%{
+  50% {
     transform: rotate(0deg);
   }
-  100%{
+  100% {
     transform: rotate(45deg);
   }
 }
 
 @keyframes closedButtonAfter {
-  0%{
+  0% {
     transform: translateY(10px) rotate(0deg);
   }
-  50%{
+  50% {
     transform: translateY(0px) rotate(0deg);
   }
-  100%{
+  100% {
     transform: translateY(0px) rotate(90deg);
   }
 }
 
 /* input field styling */
 
-.inputField-header{
+.inputField-header {
   position: relative;
   width: 20rem;
 }
 
-.newItemName{
+.newItemName {
   position: absolute;
   top: -75rem;
   left: 0;
@@ -436,18 +449,19 @@ export default Items
   outline: none;
   padding: 1.5rem;
   background: none;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 
-.newItemName:hover{
+.newItemName:hover {
   border-color: black;
 }
 
-.newItemName:focus{
+.newItemName:focus {
   border-color: black;
 }
 
-.formLabel{
+.formLabel {
   position: absolute;
   left: 1rem;
   top: -74.5rem;
@@ -458,18 +472,22 @@ export default Items
   background-color: darkcyan;
 }
 
-.newItemName:hover ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:hover) ~ .formLabel{
+.newItemName:hover ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:hover) ~ .formLabel {
   top: -76.25rem;
   left: 0.25rem;
   font-size: 0.00001rem;
   color: black;
+  // set context here
 }
 
-.newItemName:focus ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:focus) ~ .formLabel{
+.newItemName:focus ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:focus) ~ .formLabel {
   top: -76.25rem;
   left: 0.25rem;
   font-size: 0.00001rem;
   color: black;
+  // set context here
 }
+
+/* item section */
 
 </style>
