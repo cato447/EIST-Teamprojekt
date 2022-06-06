@@ -1,19 +1,49 @@
 <template>
-  <div>
-    <h1 class="title">Items</h1>
+  <div class="main">
     <h1 class="email">{{userEmail}}</h1>
     <section class="itemapp">
       <div v-if="loading">
         <h1 class="loading">Loading...</h1>
       </div>
       <div v-else>
-        <header class="header">
-          <input class="newItemName"
-                autofocus autocomplete="off"
-                 :placeholder="this.inputPlaceholder"
-                 v-model="newItem"
-                 @keyup.enter="addItem"/>
+
+        <!-- navbar -->
+
+        <header class="navbar-header">
+          <div class="logo">
+            <a>Storage</a>
+          </div>
+
+          <input type="checkbox" class="menu-btn" id="menu-btn">
+          <label for="menu-btn" class="menu-icon">
+            <span class="menu-icon__line"></span>
+          </label>
+
+          <ul class="nav-links">
+            <li class="nav-link">
+              <a href="#">Home</a>
+            </li>
+            <li class="nav-link">
+              <a href="#">Profile</a>
+            </li>
+            <li class="nav-link">
+              <a href="#">Recipes</a>
+            </li>
+            <li class="nav-link">
+              <a href="#">Placeholder</a>
+            </li>
+          </ul>
         </header>
+
+        <!-- input field -->
+
+        <header class="inputField-header">
+          <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder=" " v-model="newItem" @keyup.enter="addItem"/>
+          <label for="inputTextField" class="formLabel">
+            Add here
+          </label>
+        </header>
+
         <section class="main" v-show="items.length" v-cloak>
           <ul class="item-list">
             <li v-for="item in items"
@@ -28,11 +58,15 @@
         </section>
       </div>
     </section>
+
   </div>
+
 </template>
 
 <script>
-  import api from '../Api'; 
+
+  import api from '../Api';
+
   const Items = {
     name: 'Items',
     props: {
@@ -123,3 +157,319 @@
  }
 export default Items
 </script>
+
+<style lang="scss">
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.main{
+  font-family: 'Montserrat', sans-serif;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  background-color: darkcyan;
+}
+
+/* navbar styling */
+
+.navbar-header{
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 2.5rem;
+  left: 0;
+  width: 100vw;
+  padding: 0 5vw;
+  color: black;
+  z-index: 1;
+
+  a{
+    text-decoration: none;
+    color: inherit;
+    text-transform: uppercase;
+    font-size: 2rem;
+  }
+
+  .nav-links{
+    display: flex;
+    list-style: none;
+
+    .nav-link{
+
+      a{
+        margin: 0.2rem;
+        padding: 1rem 0.5rem;
+      }
+
+      a:hover{
+        font-size: 3.5rem;
+
+      }
+    }
+  }
+
+  .menu-icon{
+    position: relative;
+    padding: 26px 10px;
+    cursor: pointer;
+    z-index: 1;
+    display: none;
+
+    &__line{
+      display: block;
+      position: relative;
+      background: black;
+      height: 5px;
+      width: 40px;
+      border-radius: 4px;
+
+      &::before, &::after{
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        border-radius: 4px;
+        background: black;
+        transition: background .8s ease;
+      }
+
+      &::before{
+        transform: translateY(-10px);
+      }
+
+      &::after{
+        transform: translateY(10px);
+      }
+    }
+  }
+
+  .menu-btn{
+    display: none;
+  }
+}
+
+.logo:hover{
+  cursor: default;
+}
+
+@media screen {
+
+  .navbar-header{
+
+    .menu-icon{
+      display: block;
+
+      &__line{
+        animation: closedButton 0.8s backwards;
+        animation-direction: reverse;
+
+        &::before{
+          animation: closedButtonBefore 0.8s backwards;
+          animation-direction: reverse;
+        }
+
+        &::after{
+          animation: closedButtonAfter 0.8s backwards;
+          animation-direction: reverse;
+        }
+      }
+    }
+
+    .nav-links{
+      position: absolute;
+      top: -2.5rem;
+      left: 0;
+      opacity: 0;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 10rem 0;
+      width: 100vw;
+      height: 100vh;
+      font-size: 2rem;
+      color: white;
+      background: #272727;
+
+      transition:
+          opacity 0.8s 0.5s,
+          clip-path 1s 0.5s;
+      clip-path: circle(200px at top right);
+
+      .nav-links{
+        opacity: 0;
+        transform: translateX(100%);
+        width: 100%;
+        text-align: center;
+
+        a{
+          display: block;
+          padding: 2rem 0;
+        }
+      }
+    }
+
+    .menu-btn:checked ~ .nav-links{
+      opacity: 1;
+      clip-path: circle(100% at center);
+
+      .nav-link{
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .menu-btn:checked ~ .menu-icon{
+
+      .menu-icon__line{
+        background: white;
+        animation: openButton 0.8s forwards;
+
+        &::before{
+          background: white;
+          animation: openButtonBefore 0.8s forwards;
+        }
+
+        &::after{
+          background: white;
+          animation: openButtonAfter 0.8s forwards;
+        }
+      }
+    }
+  }
+}
+
+@keyframes openButtonBefore {
+  0%{
+    transform: translateY(-10px) rotate(0deg);
+  }
+  50%{
+    transform: translateY(0px) rotate(0deg);
+  }
+  100%{
+    transform: translateY(0px) rotate(90deg);
+  }
+}
+
+@keyframes openButton {
+  50%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes openButtonAfter {
+  0%{
+    transform: translateY(10px) rotate(0deg);
+  }
+  50%{
+    transform: translateY(0px) rotate(0deg);
+  }
+  100%{
+    transform: translateY(0px) rotate(90deg);
+  }
+}
+
+@keyframes closedButtonBefore {
+  0%{
+    transform: translateY(-10px) rotate(0deg);
+  }
+  50%{
+    transform: translateY(0px) rotate(0deg);
+  }
+  100%{
+    transform: translateY(0px) rotate(90deg);
+  }
+}
+
+@keyframes closedButton {
+  50%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes closedButtonAfter {
+  0%{
+    transform: translateY(10px) rotate(0deg);
+  }
+  50%{
+    transform: translateY(0px) rotate(0deg);
+  }
+  100%{
+    transform: translateY(0px) rotate(90deg);
+  }
+}
+
+/* input field styling */
+
+.inputField-header{
+  position: relative;
+  width: 20rem;
+}
+
+.newItemName{
+  position: absolute;
+  top: -75rem;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0.15rem solid white;
+  border-radius: 0.2rem;
+  font-family: inherit;
+  font-size: inherit;
+  color: black;
+  outline: none;
+  padding: 1.5rem;
+  background: none;
+}
+
+
+.newItemName:hover{
+  border-color: black;
+}
+
+.newItemName:focus{
+  border-color: black;
+}
+
+.formLabel{
+  position: absolute;
+  left: 1rem;
+  top: -74.5rem;
+  padding: 0.5rem;
+  color: white;
+  cursor: text;
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+  background-color: darkcyan;
+}
+
+.newItemName:hover ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:hover) ~ .formLabel{
+  top: -76.25rem;
+  left: 0.25rem;
+  font-size: 0.00001rem;
+  color: black;
+}
+
+.newItemName:focus ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:focus) ~ .formLabel{
+  top: -76.25rem;
+  left: 0.25rem;
+  font-size: 0.00001rem;
+  color: black;
+}
+
+</style>
