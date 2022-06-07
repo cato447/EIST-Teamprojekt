@@ -90,3 +90,5 @@ out
 # Gradle
 .gradle
 !gradle/wrapper/gradle-wrapper.jar
+
+frontend/src/index.js

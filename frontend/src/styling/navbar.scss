@@ -14,7 +14,7 @@
     text-decoration: none;
     color: inherit;
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .nav-links {
@@ -32,6 +32,12 @@
       transition: all 300ms;
     }
   }
+}
+
+.divider{
+  flex-grow: 1;
+  border-bottom: 0.15rem solid black;
+  margin: 5px;
 }
 
 .menu-icon {

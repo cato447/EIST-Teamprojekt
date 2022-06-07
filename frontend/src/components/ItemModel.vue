@@ -14,6 +14,8 @@
             <a>Storage</a>
           </div>
 
+          <span class="divider"></span>
+
           <input type="checkbox" class="menu-btn" id="menu-btn">
           <label for="menu-btn" class="menu-icon">
             <span class="menu-icon__line"></span>
