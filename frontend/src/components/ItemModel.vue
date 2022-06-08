@@ -191,7 +191,7 @@ export default Items
   display: grid;
   justify-content: center;
   align-items: center;
-  font-size: 1vh;
+  font-size: 1.25vh;
   background-color: darkcyan;
 }
 
@@ -203,18 +203,18 @@ export default Items
 }
 
 .newItemName {
-  position: absolute;
-  top: -67.5vh; // 0,65 of height
+  position: relative;
+  top: -65.5vh; // 0,65 of height
   left: 0;
   width: 100%;
   height: 100%;
-  border: 2px solid white; // 0.10 of font size // u cannot use var here
-  border-radius: var(--globalFontSizeFifth); // times 2 of border
+  border: 0.07352941176470588vh solid white; // 0.10 of font size // u cannot use var here
+  border-radius: 0.4411764705882353vh; // times 2 of border
   font-family: inherit;
   font-size: inherit;
   color: black;
   outline: none;
-  padding: 1.3vh;// size of font
+  padding: 0.5vh;// size of font
   background: none;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); // 0.5 size of font and 1.5 size of font
 }
@@ -228,10 +228,11 @@ export default Items
 }
 
 .formLabel {
-  position: absolute;
-  left: 8px; // dont change this
-  top: -67vh; // 0.647peroid2
-  padding: 8px;
+  position: relative;
+  top: -67.75vh;
+  left: 0.75vh;
+  padding: 0.1vh;
+  font-size: 0.1vh;
   color: white;
   cursor: text;
   transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
@@ -239,17 +240,25 @@ export default Items
 }
 
 .newItemName:hover ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:hover) ~ .formLabel {
-  top: -68.65vh;
-  left: 0.25vw;
-  font-size: 0.00001rem;
+  top: -69.30vh;
+  left: 0.15vw;
+  font-size: 0.1vh;
   color: black;
 }
 
 .newItemName:focus ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:focus) ~ .formLabel {
-  top: -68.65vh;
-  left: 0.25vw;
-  font-size: 0.00001rem;
+  top: -69.30vh;
+  left: 0.15vw;
+  font-size: 0.1vh;
   color: black;
+}
+
+/* Workaround for below WQHD resolution */
+
+@media screen and (max-height: 1400px) {
+  .formLabel{
+    opacity: 0;
+  }
 }
 
 /* item section */

@@ -42,7 +42,7 @@ export default {
   transform: translate(50%,50%);
   text-transform: uppercase;
   font-family: Montserrat, sans-serif;
-  font-size: 20rem;
+  font-size: 16vh;
   font-weight: 700;
   color: #F5F5F5;
 
@@ -67,8 +67,8 @@ h1{
   color: #F5F5F5;
   position: relative;
   font-family: "Source Code Pro", monospace;
-  font-size: 2rem;
-  top: 62rem;
+  font-size: 1.5vh;
+  top: 53.5vh;
   font-weight: 400;
 }
 
@@ -88,7 +88,7 @@ h1::before{
 }
 
 h1::after{
-  width: 0.125rem;
+  width: 0.1vh;
   background: white;
   animation:
       shifteffect 4s steps(22) forwards,
@@ -100,7 +100,7 @@ a{
   position: absolute;
   top: 4%;
   right: 5%;
-  font-size: 2.5rem;
+  font-size: 2vh;
   text-transform: uppercase;
   text-decoration: none;
   color: #F5F5F5;
@@ -109,7 +109,7 @@ a{
 
 a:hover{
   cursor: pointer;
-  font-size: 3rem;
+  font-size: 2.5vh;
   transition: all 300ms;
 }
 
