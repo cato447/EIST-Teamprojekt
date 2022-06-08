@@ -194,7 +194,7 @@ export default Items
 
 .newItemName {
   position: absolute;
-  top: -75rem;
+  top: -80rem;
   left: 0;
   width: 100%;
   height: 100%;
@@ -209,7 +209,6 @@ export default Items
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-
 .newItemName:hover {
   border-color: black;
 }
@@ -221,7 +220,7 @@ export default Items
 .formLabel {
   position: absolute;
   left: 1rem;
-  top: -74.5rem;
+  top: -79.5rem;
   padding: 0.5rem;
   color: white;
   cursor: text;
@@ -230,7 +229,7 @@ export default Items
 }
 
 .newItemName:hover ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:hover) ~ .formLabel {
-  top: -76.25rem;
+  top: -81.25rem;
   left: 0.25rem;
   font-size: 0.00001rem;
   color: black;
@@ -238,11 +237,46 @@ export default Items
 }
 
 .newItemName:focus ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:focus) ~ .formLabel {
-  top: -76.25rem;
+  top: -81.25rem;
   left: 0.25rem;
   font-size: 0.00001rem;
   color: black;
   // set context here
+}
+
+@media screen and (max-height: 1080px){
+
+  .main{
+    font-size: 2px;
+  }
+
+  .newItemName {
+    top: -31rem;
+  }
+
+  .formLabel{
+    top: -30.5rem;
+  }
+
+  .inputField-header{
+    width: 15rem;
+  }
+
+  .newItemName:hover ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:hover) ~ .formLabel {
+    top: -32.4rem;
+    left: 0.25rem;
+    font-size: 2px;
+    color: black;
+    // set context here
+  }
+
+  .newItemName:focus ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:focus) ~ .formLabel {
+    top: -32.4rem;
+    left: 0.25rem;
+    font-size: 2px;
+    color: black;
+    // set context here
+  }
 }
 
 /* item section */
