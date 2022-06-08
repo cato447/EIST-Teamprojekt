@@ -167,6 +167,16 @@ export default Items
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200&display=swap');
 @import 'src/styling/navbar';
 
+:root{
+  --globalFontSize: 20px; // 1/108
+  --globalFontSizeHalf: var(--globalFontSize) * 0.5;
+  --globalFontSizeOneAndHalf: var(--globalFontSize) * 1.5;
+
+  --globalFontSizeTenth: var(--globalFontSize) * 0.1;
+  --globalFontSizeFifth: var(--globalFontSize) * 0.2;
+  --globalFontSizeFourFiths: var(--globalFontSize) * 0.8;
+}
+
 *,
 *::before,
 *::after {
@@ -181,7 +191,7 @@ export default Items
   display: grid;
   justify-content: center;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: 1vh;
   background-color: darkcyan;
 }
 
@@ -189,24 +199,24 @@ export default Items
 
 .inputField-header {
   position: relative;
-  width: 20rem;
+  width: 20vh;
 }
 
 .newItemName {
   position: absolute;
-  top: -80rem;
+  top: -67.5vh; // 0,65 of height
   left: 0;
   width: 100%;
   height: 100%;
-  border: 0.15rem solid white;
-  border-radius: 0.2rem;
+  border: 2px solid white; // 0.10 of font size // u cannot use var here
+  border-radius: var(--globalFontSizeFifth); // times 2 of border
   font-family: inherit;
   font-size: inherit;
   color: black;
   outline: none;
-  padding: 1.5rem;
+  padding: 1.3vh;// size of font
   background: none;
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); // 0.5 size of font and 1.5 size of font
 }
 
 .newItemName:hover {
@@ -219,9 +229,9 @@ export default Items
 
 .formLabel {
   position: absolute;
-  left: 1rem;
-  top: -79.5rem;
-  padding: 0.5rem;
+  left: 8px; // dont change this
+  top: -67vh; // 0.647peroid2
+  padding: 8px;
   color: white;
   cursor: text;
   transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
@@ -229,54 +239,17 @@ export default Items
 }
 
 .newItemName:hover ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:hover) ~ .formLabel {
-  top: -81.25rem;
-  left: 0.25rem;
+  top: -68.65vh;
+  left: 0.25vw;
   font-size: 0.00001rem;
   color: black;
-  // set context here
 }
 
 .newItemName:focus ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:focus) ~ .formLabel {
-  top: -81.25rem;
-  left: 0.25rem;
+  top: -68.65vh;
+  left: 0.25vw;
   font-size: 0.00001rem;
   color: black;
-  // set context here
-}
-
-@media screen and (max-height: 1080px){
-
-  .main{
-    font-size: 2px;
-  }
-
-  .newItemName {
-    top: -31rem;
-  }
-
-  .formLabel{
-    top: -30.5rem;
-  }
-
-  .inputField-header{
-    width: 15rem;
-  }
-
-  .newItemName:hover ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:hover) ~ .formLabel {
-    top: -32.4rem;
-    left: 0.25rem;
-    font-size: 2px;
-    color: black;
-    // set context here
-  }
-
-  .newItemName:focus ~ .formLabel, .newItemName:not(:placeholder-shown).newItemName:not(:focus) ~ .formLabel {
-    top: -32.4rem;
-    left: 0.25rem;
-    font-size: 2px;
-    color: black;
-    // set context here
-  }
 }
 
 /* item section */
