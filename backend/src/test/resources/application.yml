@@ -7,6 +7,9 @@ spring:
     username: sa
     password:
     driverClassName: org.h2.Driver
+  data:
+    rest:
+      base-path: /api/v1
 
 logging:
   level:
