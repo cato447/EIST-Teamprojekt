@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import whattocook.repositories.ItemRepository;
 import whattocook.services.ItemService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> findAll() {
+    public Iterable<Item> findAll() {
         return itemRepository.findAll();
     }
 }
