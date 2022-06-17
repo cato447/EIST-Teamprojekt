@@ -27,18 +27,18 @@ public class SpoonacularController {
     @Autowired
     private SpoonacularApiService service;
 
-    @GetMapping("forFridge")
+    @GetMapping("/forFridge")
     public HttpEntity<JSONArray> getForFridge() throws IOException, InterruptedException, JSONException {
         return new HttpEntity<JSONArray>(service.getForIngridients(itemRepository.findAll(), nextRecepies));
     }
 
-    @GetMapping("random")
+    @GetMapping("/random")
     public HttpEntity<JSONArray> getRandom() throws IOException, InterruptedException, JSONException {
         return new HttpEntity<JSONArray>(service.getRandom(new LinkedList<>(), nextRecepies));
         //when user has food preferences apply instead of linked list.
     }
 
-    @GetMapping("oneFridge")
+    @GetMapping("/oneFridge")
     public HttpEntity<JSONObject> getOneFridge() throws IOException, InterruptedException, JSONException {
         return new HttpEntity<JSONObject>(service.getOneForIngridients(itemRepository.findAll(), nextRecepiesForOneRandom));
     }
