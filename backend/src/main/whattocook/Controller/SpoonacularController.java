@@ -1,14 +1,16 @@
 package whattocook.Controller;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import whattocook.repositories.ApiService;
+import whattocook.services.ApiService;
 import whattocook.repositories.ItemRepository;
-import whattocook.implementation.ApiServiceImpl;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -23,19 +25,19 @@ public class SpoonacularController {
     private ApiService service;
 
     @GetMapping("api/forFridge")
-    public HttpEntity<String> getForFridge() throws IOException, InterruptedException {
-        return new HttpEntity<>(service.getForIngridients(itemRepository.findAll(), nextRecepies));
+    public HttpEntity<JSONArray> getForFridge() throws IOException, InterruptedException, JSONException {
+        return new HttpEntity<JSONArray>(service.getForIngridients(itemRepository.findAll(), nextRecepies));
     }
 
     @GetMapping("api/random")
-    public HttpEntity<String> getRandom() throws IOException, InterruptedException {
-        return new HttpEntity<>(service.getRandom(new LinkedList<>(), nextRecepies));
+    public HttpEntity<JSONArray> getRandom() throws IOException, InterruptedException, JSONException {
+        return new HttpEntity<JSONArray>(service.getRandom(new LinkedList<>(), nextRecepies));
         //when user has food preferences apply instead of linked list.
     }
 
     @GetMapping("api/oneFridge"    )
-    public HttpEntity<String> getOneFridge() throws IOException, InterruptedException {
-        return new HttpEntity<>(service.getOneForIngridients(itemRepository.findAll(), nextRecepiesForOneRandom));
+    public HttpEntity<JSONObject> getOneFridge() throws IOException, InterruptedException, JSONException {
+        return new HttpEntity<JSONObject>(service.getOneForIngridients(itemRepository.findAll(), nextRecepiesForOneRandom));
     }
 
     public void setNextRecepies(int nextRecepies) {
