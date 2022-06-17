@@ -46,7 +46,7 @@ public class ApiServiceImpl implements ApiService {
     public String getRandom(int number, java.util.List<String> tags) throws java.io.IOException, InterruptedException {
         if (tags.isEmpty()) {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?apiKey=" + KEY + "?number=" + number))
+                    .uri(URI.create("https://api.spoonacular.com/recipes/random?apiKey=" + KEY + "&number=" + number))
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
@@ -57,8 +57,7 @@ public class ApiServiceImpl implements ApiService {
                 tagString += "," + tags.get(i);
             }
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=" + number + "&tags=" + tagString))
-                    .header("x-api-key", KEY)
+                    .uri(URI.create("https://api.spoonacular.com/recipes/random?apiKey=" + KEY + "&number=" + number+ "&tags=" + tagString))
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
