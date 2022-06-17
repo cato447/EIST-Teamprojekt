@@ -55,7 +55,7 @@
                 class="item"
                 :key="item.id">
               <div class="view">
-                <label @dblclick="editItem(item)">{{ item.name }} {{ item.quantity }}{{ item.unit }}</label>
+                <label @dblclick="editItem(item)">{{ item.name.toUpperCase() }} {{ item.quantity }}{{ item.unit.toLowerCase() }}</label>
                 <button class="destroy" @click="removeItem(item)"></button>
               </div>
             </li>
@@ -268,6 +268,7 @@ export default Items
 
 .item-section{
   position: fixed;
+  font-size: 1vh;
 }
 
 .item-list{
@@ -275,9 +276,9 @@ export default Items
   display: grid;
   grid-gap: 12vh;
   top: -60vh;
-  left: -47vw;
+  left: -44.33vw;
   margin-left: 10vh;
-  grid-template-columns: repeat(7, 2vh);
+  grid-template-columns: repeat(12, 2vh);
 
   .item{
     position: relative;
@@ -289,6 +290,7 @@ export default Items
     padding: 5vh;
     background: darkslategrey;
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
+    display: flex;
   }
 
   .view{
@@ -316,19 +318,12 @@ export default Items
     border: solid black 0.1vh;
     position: absolute;
     width: 3vh;
-    top: -0.10vh;
+    top: -0.05vh;
     left: -0.1vh;
     transform: rotate(-90deg);
   }
 
-
-
-
   .destroy:hover{
-    cursor: pointer;
-  }
-
-  .destroyOther:hover{
     cursor: pointer;
   }
 }
