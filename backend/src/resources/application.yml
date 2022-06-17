@@ -10,6 +10,9 @@ spring:
   data:
     rest:
       base-path: /api/v1
+  security:
+    user:
+      password: user
 
 logging:
   level:
