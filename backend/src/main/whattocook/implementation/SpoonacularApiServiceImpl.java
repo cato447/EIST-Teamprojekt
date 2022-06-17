@@ -3,7 +3,7 @@ package whattocook.implementation;
 
 import org.springframework.stereotype.Service;
 import whattocook.models.Item;
-import whattocook.services.ApiService;
+import whattocook.services.SpoonacularApiService;
 import org.json.*;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 @Service
-public class ApiServiceImpl implements ApiService {
+public class SpoonacularApiServiceImpl implements SpoonacularApiService {
     private final String KEY = "85cc006d508b447a88e659cd748899db";
     private final String RANKING = "2";
     private final boolean IGNOREPANTRY = true;
@@ -82,11 +82,5 @@ public class ApiServiceImpl implements ApiService {
 
 
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.spoonacular.com/recipes/random?apiKey=" + "85cc006d508b447a88e659cd748899db" + "&number=" + 10))
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-       HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-    }
+
 }

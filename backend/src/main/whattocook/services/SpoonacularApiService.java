@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import whattocook.models.Item;
 
-public interface ApiService {
+public interface SpoonacularApiService {
     JSONArray getForIngridients(Iterable<Item> items, int number) throws java.io.IOException, InterruptedException, JSONException;
     JSONObject getOneForIngridients(Iterable<Item> items, int number) throws java.io.IOException, InterruptedException, JSONException;
 
