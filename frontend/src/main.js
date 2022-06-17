@@ -21,5 +21,5 @@ Vue.use(VueLogger, options);
 new Vue({
   el: '#app',
   template: '<App/>',
-  components: { App }
+  components: { App}
 });

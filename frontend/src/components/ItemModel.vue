@@ -9,7 +9,7 @@
 
         <!-- navbar -->
 
-        <header class="navbar-header">
+        <div class="navbar-header">
           <div class="logo">
             <a>Storage</a>
           </div>
@@ -23,44 +23,44 @@
 
           <ul class="nav-links">
             <li class="nav-link">
-              <a href="#">Home</a>
+              <router-link to="/">Home</router-link>
             </li>
             <li class="nav-link">
-              <a href="#">Profile</a>
+              <router-link to="/profile">Profile</router-link>
             </li>
             <li class="nav-link">
-              <a href="#">Recipes</a>
+              <router-link to="/recipes">Recipes</router-link>
             </li>
             <li class="nav-link">
-              <a href="#">Placeholder</a>
+              <router-link to="/shoppinglist">Shoppinglist</router-link>
             </li>
           </ul>
-        </header>
+        </div>
 
         <!-- input field -->
 
-        <header class="inputField-header">
+        <div class="inputField-header">
           <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder=" " v-model="newItem"
                  @keyup.enter="addItem"/>
           <label for="inputTextField" class="formLabel">
             Add here ...
           </label>
-        </header>
+        </div>
 
         <!-- response element -->
 
-        <section class="item-section" v-show="items.length" v-cloak>
+        <div class="item-section" v-show="items.length" v-cloak>
           <ul class="item-list">
             <li v-for="item in items"
                 class="item"
                 :key="item.id">
               <div class="view">
                 <label @dblclick="editItem(item)">{{ item.name }} {{ item.quantity }}{{ item.unit }}</label>
-                <button class="destroy" @click="removeItem(item)">❌</button>
+                <button class="destroy" @click="removeItem(item)"></button>
               </div>
             </li>
           </ul>
-        </section>
+        </div>
       </div>
     </section>
 
@@ -69,7 +69,6 @@
 </template>
 
 <script>
-
 import api from '../Api';
 
 const Items = {
@@ -253,6 +252,10 @@ export default Items
   color: black;
 }
 
+.item{
+  position: relative;
+}
+
 /* Workaround for below WQHD resolution */
 
 @media screen and (max-height: 1400px) {
@@ -262,5 +265,72 @@ export default Items
 }
 
 /* item section */
+
+.item-section{
+  position: fixed;
+}
+
+.item-list{
+  position: relative;
+  display: grid;
+  grid-gap: 12vh;
+  top: -60vh;
+  left: -47vw;
+  margin-left: 10vh;
+  grid-template-columns: repeat(7, 2vh);
+
+  .item{
+    position: relative;
+    margin-top: 0;
+    font-family: Montserrat, sans-serif;
+    list-style: none;
+    border: 0 solid white;
+    border-radius: 0;
+    padding: 5vh;
+    background: darkslategrey;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .view{
+    position: relative;
+    top: -3vh;
+    left: -2.5vh;
+    color: white;
+  }
+
+  .destroy{
+    display: block;
+    position: relative;
+    height: 0.1vh;
+    width: 3vh;
+    top: 6vh;
+    left: 1vh;
+    border-radius: 0.1vh;
+    border: solid black 0.1vh;
+    transform: rotate(45deg);
+  }
+
+  .destroy:after{
+    content: '';
+    border-radius: 0.1vh;
+    border: solid black 0.1vh;
+    position: absolute;
+    width: 3vh;
+    top: -0.10vh;
+    left: -0.1vh;
+    transform: rotate(-90deg);
+  }
+
+
+
+
+  .destroy:hover{
+    cursor: pointer;
+  }
+
+  .destroyOther:hover{
+    cursor: pointer;
+  }
+}
 
 </style>
