@@ -1,4 +1,5 @@
 <template>
+  <body>
   <div class="main">
     <h1 class="email">{{ userEmail }}</h1>
     <section class="itemapp">
@@ -55,7 +56,10 @@
                 class="item"
                 :key="item.id">
               <div class="view">
-                <label @dblclick="editItem(item)">{{ item.name.toUpperCase() }} {{ item.quantity }}{{ item.unit.toLowerCase() }}</label>
+                <label class="item-name" @dblclick="editItem(item)">
+                  <span class="item-name-fame">{{ item.name.toUpperCase() }} </span>
+                  <span class="item-information-frame">{{ item.quantity }} {{ item.unit.toLowerCase() }}</span>
+                </label>
                 <button class="destroy" @click="removeItem(item)"></button>
               </div>
             </li>
@@ -65,7 +69,7 @@
     </section>
 
   </div>
-
+  </body>
 </template>
 
 <script>
@@ -184,7 +188,14 @@ export default Items
   padding: 0;
 }
 
+body{
+  margin: 0;
+  padding: 0;
+  background-color:darkcyan;
+}
+
 .main {
+  position: relative;
   font-family: 'Montserrat', sans-serif;
   height: 100vh;
   display: grid;
@@ -197,8 +208,10 @@ export default Items
 /* input field styling */
 
 .inputField-header {
-  position: relative;
+  position: fixed;
   width: 20vh;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .newItemName {
@@ -267,35 +280,65 @@ export default Items
 /* item section */
 
 .item-section{
-  position: fixed;
-  font-size: 1vh;
+  position: absolute;
+  font-size: 20px;
+  top: 80%;
+  left: 50%;
+  margin-left: 50px;
 }
 
 .item-list{
+  align-self: center;
   position: relative;
   display: grid;
-  grid-gap: 12vh;
+
   top: -60vh;
   left: -44.33vw;
-  margin-left: 10vh;
-  grid-template-columns: repeat(12, 2vh);
+  row-gap: 75px;
+  column-gap: 340px;
 
   .item{
+    text-align: center;
     position: relative;
     margin-top: 0;
     font-family: Montserrat, sans-serif;
     list-style: none;
-    border: 0 solid white;
-    border-radius: 0;
-    padding: 5vh;
+    padding: 100px;
+    width: 300px;
     background: darkslategrey;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
     display: flex;
+  }
+
+  .item-name{
+    position: relative;
+    left: -20px;
+  }
+
+  .item-name-fame{
+    letter-spacing: 4px;
+    font-size: 30px;
+  }
+
+  .item-name-fame:after{
+    content:'';
+    display:block;
+    border-bottom:2px solid #000;
+    top: 16px;
+    height:0;
+    width:250px;
+    position:relative;
+  }
+
+  .item-information-frame{
+    letter-spacing: 2px;
+    position: relative;
+    top: 32px;
   }
 
   .view{
     position: relative;
-    top: -3vh;
+    top: -60px;
     left: -2.5vh;
     color: white;
   }
@@ -303,23 +346,23 @@ export default Items
   .destroy{
     display: block;
     position: relative;
-    height: 0.1vh;
-    width: 3vh;
-    top: 6vh;
-    left: 1vh;
-    border-radius: 0.1vh;
-    border: solid black 0.1vh;
+    height: 50px;
+    width: 2px;
+    top: 140px;
+    left: 0;
+    border-radius: 1px;
+    border: solid black 1px;
     transform: rotate(45deg);
   }
 
   .destroy:after{
     content: '';
-    border-radius: 0.1vh;
-    border: solid black 0.1vh;
-    position: absolute;
-    width: 3vh;
-    top: -0.05vh;
-    left: -0.1vh;
+    height: 50px;
+    width: 2px;
+    border-radius: 1px;
+    border: solid black 1px;
+    position: fixed;
+    top: -2px;
     transform: rotate(-90deg);
   }
 
@@ -327,5 +370,34 @@ export default Items
     cursor: pointer;
   }
 }
+
+@media (max-width: 1920px) {
+  .item-list{
+    grid-template-columns: repeat(4, 2vh);
+  }
+}
+
+@media (min-width: 1920px) {
+  .item-list{
+    grid-template-columns: repeat(5, 2vh);
+  }
+}
+
+@media (min-width: 2560px) {
+  .item-list{
+    grid-template-columns: repeat(7, 2vh);
+  }
+}
+
+
+@media (min-width: 3840px) {
+  .item-list{
+    grid-template-columns: repeat(9, 2vh);
+    border-collapse: separate;
+    border-spacing: 0 15px;
+  }
+}
+
+
 
 </style>
