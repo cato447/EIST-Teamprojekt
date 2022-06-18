@@ -208,6 +208,7 @@ body{
 /* input field styling */
 
 .inputField-header {
+  z-index: 3;
   position: fixed;
   width: 20vh;
   left: 50%;
@@ -215,6 +216,7 @@ body{
 }
 
 .newItemName {
+  z-index: 3;
   position: relative;
   top: -65.5vh; // 0,65 of height
   left: 0;
@@ -227,8 +229,8 @@ body{
   color: black;
   outline: none;
   padding: 0.5vh;// size of font
-  background: none;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); // 0.5 size of font and 1.5 size of font
+  background: darkcyan;
 }
 
 .newItemName:hover {
@@ -240,6 +242,7 @@ body{
 }
 
 .formLabel {
+  z-index: 3;
   position: relative;
   top: -67.75vh;
   left: 0.75vh;
@@ -265,10 +268,6 @@ body{
   color: black;
 }
 
-.item{
-  position: relative;
-}
-
 /* Workaround for below WQHD resolution */
 
 @media screen and (max-height: 1400px) {
@@ -280,6 +279,7 @@ body{
 /* item section */
 
 .item-section{
+  z-index: 2;
   position: absolute;
   font-size: 20px;
   top: 80%;
@@ -288,6 +288,7 @@ body{
 }
 
 .item-list{
+  z-index: 2;
   align-self: center;
   position: relative;
   display: grid;
@@ -298,6 +299,7 @@ body{
   column-gap: 340px;
 
   .item{
+    z-index: 2;
     text-align: center;
     position: relative;
     margin-top: 0;
@@ -311,11 +313,13 @@ body{
   }
 
   .item-name{
+    z-index: 2;
     position: relative;
     left: -20px;
   }
 
   .item-name-fame{
+    z-index: 2;
     letter-spacing: 4px;
     font-size: 30px;
   }
@@ -371,13 +375,13 @@ body{
   }
 }
 
-@media (max-width: 1920px) {
+@media (max-width: 2299px) {
   .item-list{
     grid-template-columns: repeat(4, 2vh);
   }
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 2100px) {
   .item-list{
     grid-template-columns: repeat(5, 2vh);
   }
@@ -385,12 +389,12 @@ body{
 
 @media (min-width: 2560px) {
   .item-list{
-    grid-template-columns: repeat(7, 2vh);
+    grid-template-columns: repeat(6, 2vh);
   }
 }
 
 
-@media (min-width: 3840px) {
+@media (min-width: 3800px) {
   .item-list{
     grid-template-columns: repeat(9, 2vh);
     border-collapse: separate;
