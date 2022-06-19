@@ -72,7 +72,12 @@
   </body>
 </template>
 
+
+
+
+
 <script>
+
 import api from '../Api';
 
 const Items = {
@@ -164,6 +169,11 @@ const Items = {
 }
 export default Items
 </script>
+
+
+
+
+
 
 <style lang="scss">
 
@@ -281,10 +291,11 @@ body{
 .item-section{
   z-index: 2;
   position: absolute;
-  font-size: 20px;
   top: 80%;
   left: 50%;
-  margin-left: 50px;
+
+  font-size: 20px;
+  margin-left: 30px;
 }
 
 .item-list{
@@ -292,9 +303,9 @@ body{
   align-self: center;
   position: relative;
   display: grid;
-
   top: -60vh;
   left: -44.33vw;
+
   row-gap: 75px;
   column-gap: 340px;
 
@@ -305,21 +316,24 @@ body{
     margin-top: 0;
     font-family: Montserrat, sans-serif;
     list-style: none;
-    padding: 100px;
-    width: 300px;
     background: darkslategrey;
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
     display: flex;
+
+    padding: 100px;
+    width: 300px;
   }
 
   .item-name{
     z-index: 2;
     position: relative;
+
     left: -20px;
   }
 
   .item-name-fame{
     z-index: 2;
+
     letter-spacing: 4px;
     font-size: 30px;
   }
@@ -328,46 +342,51 @@ body{
     content:'';
     display:block;
     border-bottom:2px solid #000;
-    top: 16px;
     height:0;
-    width:250px;
     position:relative;
+
+    top: 16px;
+    width:250px;
   }
 
   .item-information-frame{
-    letter-spacing: 2px;
     position: relative;
+
+    letter-spacing: 2px;
     top: 32px;
   }
 
   .view{
     position: relative;
-    top: -60px;
-    left: -2.5vh;
     color: white;
+
+    top: -60px;
+    left: -52px;
   }
 
   .destroy{
     display: block;
     position: relative;
-    height: 50px;
-    width: 2px;
-    top: 140px;
     left: 0;
     border-radius: 1px;
     border: solid black 1px;
     transform: rotate(45deg);
+
+    height: 50px;
+    width: 2px;
+    top: 140px;
   }
 
   .destroy:after{
     content: '';
-    height: 50px;
-    width: 2px;
     border-radius: 1px;
     border: solid black 1px;
     position: fixed;
-    top: -2px;
     transform: rotate(-90deg);
+
+    height: 50px;
+    width: 2px;
+    top: -2px;
   }
 
   .destroy:hover{
@@ -399,6 +418,115 @@ body{
     grid-template-columns: repeat(9, 2vh);
     border-collapse: separate;
     border-spacing: 0 15px;
+  }
+}
+
+/* responsive */
+
+@media (max-height: 1440px) and (min-width: 720px) {
+
+  .item-section{
+
+    font-size: 40/3 px;
+    margin-left: 80px;
+  }
+
+  .item-list{
+    z-index: 2;
+    align-self: center;
+    position: relative;
+    display: grid;
+    top: -60vh;
+    left: -44.33vw;
+
+    row-gap: 50px;
+    column-gap: 230px;
+    grid-template-columns: repeat(4, 2vh);
+
+    .item{
+      width: 200px;
+      height: 200px;
+    }
+
+    .item-name{
+      left: -30px;
+    }
+
+    .item-name-fame{
+      position: relative;
+      letter-spacing: 4px;
+      font-size: 12px;
+      top: -20px;
+    }
+
+    .item-name-fame:after{
+      content:'';
+      display:block;
+      border-bottom:2px solid #000;
+      height:0;
+      position:relative;
+
+      top: 8px;
+      width:170px;
+    }
+
+    .item-information-frame{
+
+      font-size: 8px;
+
+      letter-spacing: 1px;
+      top: -5px;
+    }
+
+    .view{
+      position: relative;
+      color: white;
+
+      top: -50px;
+      left: -52px;
+    }
+
+    .destroy{
+      display: block;
+      position: relative;
+      left: -10px;
+      border-radius: 1px;
+      border: solid black 1px;
+      transform: rotate(45deg);
+
+      height: 35px;
+      width: 2px;
+      top: 50px;
+    }
+
+    .destroy:after{
+      content: '';
+      border-radius: 1px;
+      border: solid black 1px;
+      position: fixed;
+      transform: rotate(-90deg);
+
+      height: 35px;
+      width: 2px;
+      top: -2px;
+    }
+
+    .destroy:hover{
+      cursor: pointer;
+    }
+  }
+
+  @media (min-width: 1440px) {
+
+    .item-section{
+
+      font-size: 40/3 px;
+      margin-left: 24px;
+    }
+
+    .item-list{
+      grid-template-columns: repeat(9, 2vh)
+    }
   }
 }
 
