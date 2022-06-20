@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <ItemModel/>
+    <LoginPage/>
   </div>
 </template>
 <script>
-import ItemModel from "@/components/ItemModel";
+import LoginPage from "@/components/LoginPage";
 export default {
   components: {
-    ItemModel
+    LoginPage
   }
 };
 </script>
