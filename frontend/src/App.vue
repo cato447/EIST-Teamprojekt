@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <ItemModel />
+    <ItemModel/>
   </div>
 </template>
 <script>
-import ItemModel from "./components/ItemModel.vue";
+import ItemModel from "@/components/ItemModel";
 export default {
   components: {
     ItemModel
