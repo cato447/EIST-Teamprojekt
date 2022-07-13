@@ -23,20 +23,15 @@ import java.util.Random;
 public class RecipeSearch {
     private static final boolean IGNOREPANTRY = true;
 
-    private final Random rnd;
-    private final Dotenv dotenv;
-    private final RecipeInformation recipeInformation;
+    private static final Random rnd = new Random();
+    private static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
 
-    private final OkHttpClient client;
+    private static final OkHttpClient client = new OkHttpClient();
 
-    public RecipeSearch(){
-        rnd = new Random();
-        dotenv = Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
-        recipeInformation = new RecipeInformation();
-        client = new OkHttpClient();
+    private RecipeSearch(){
     }
 
-    public List<ExtendedRecipeByIngredient> getForIngridients(Iterable<Item> items, int number) throws java.io.IOException {
+    public static List<ExtendedRecipeByIngredient> getForIngridients(Iterable<Item> items, int number) throws java.io.IOException {
         List<String> itemNames = new LinkedList<>();
         items.forEach(item -> itemNames.add(item.getName()));
         String ingridients = String.join(",", itemNames);
@@ -53,14 +48,14 @@ public class RecipeSearch {
         String responseString = response.body().string();
 
         List<RecipeByIngredient> recipeByIngredients = new ObjectMapper().readValue(responseString, new TypeReference<>(){});
-        return recipeInformation.getRecepieByIngredientsExtended(recipeByIngredients);
+        return RecipeInformation.getRecepieByIngredientsExtended(recipeByIngredients);
     }
 
-    public ExtendedRecipeByIngredient getOneForIngridients(Iterable<Item> items, int number) throws IOException {
-        return this.getForIngridients(items, number).get(rnd.nextInt(number));
+    public static ExtendedRecipeByIngredient getOneForIngridients(Iterable<Item> items, int number) throws IOException {
+        return getForIngridients(items, number).get(rnd.nextInt(number));
     }
 
-    public List<Recipe> getRandom(List<String> tags, int number) throws java.io.IOException, JSONException {
+    public static List<Recipe> getRandom(List<String> tags, int number) throws java.io.IOException, JSONException {
         String tagString = String.join(",", tags);
         Request request = APIAuthentication.addAuthHeaders(new Request.Builder()
                 .url("https://" + dotenv.get("X-RapidAPI-Host") +
