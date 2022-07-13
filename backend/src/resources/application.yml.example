@@ -3,10 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:whattocook
-    username: sa
+    url:
+    username:
     password:
-    driverClassName: org.h2.Driver
+    driver-class-name:
   data:
     rest:
       base-path: /api/v1
