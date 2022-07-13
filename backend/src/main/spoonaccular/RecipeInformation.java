@@ -6,7 +6,10 @@ import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
+import spoonaccular.models.ingredients_by_id.Ingredient;
 import spoonaccular.models.recipe_by_ingredient.ExtendedRecipeByIngredient;
 import spoonaccular.models.recipe_by_ingredient.RecipeByIngredient;
 import spoonaccular.models.recipe_information.Recipe;
@@ -35,6 +38,16 @@ public class RecipeInformation {
         String idsString = ids.stream().map(String::valueOf)
                 .collect(Collectors.joining(","));
         return new ObjectMapper().readValue(queryInformationBulk(idsString).body().string(), new TypeReference<>() {});
+    }
+
+    public static List<Ingredient> getIngredientList(int recipeId) throws IOException, JSONException {
+        Request request = APIAuthentication.addAuthHeaders(new Request.Builder()
+                .url("https://" + dotenv.get("X-RapidAPI-Host") +
+                        "/recipes/" + recipeId + "/ingredientWidget.json"))
+                .build();
+        Response response = client.newCall(request).execute();
+        JSONObject jsonObject = new JSONObject(response.body().string());
+        return new ObjectMapper().readValue(jsonObject.getJSONArray("ingredients").toString(), new TypeReference<>() {});
     }
 
     private static Response queryInformationBulk(String idsString) throws IOException {

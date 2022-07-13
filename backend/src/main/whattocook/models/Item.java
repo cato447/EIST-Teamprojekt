@@ -25,9 +25,9 @@ public class Item {
 
     private Unit unit;
 
-    private int quantity;
+    private double quantity;
 
-    public Item(String name, Unit unit, int quantity){
+    public Item(String name, Unit unit, double quantity){
         this.name = name;
         this.unit = unit;
         this.quantity = quantity;
