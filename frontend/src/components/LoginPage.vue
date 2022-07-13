@@ -56,7 +56,7 @@
             </div>
           </div>
 
-          <div :class="{toggleOff:isSignUp}" class="user-signup">
+          <div :style="{'display': isSignUp ? 'none' : ''}" class="user-signup">
             <div class="site-background"/>
             <div class="form-background">
               <form>
@@ -66,7 +66,7 @@
                 <input placeholder="Email Address" type="text">
                 <input placeholder="Create Password" type="password">
                 <input placeholder="Confirm Password" type="password">
-                <input type="submit" value="Sign Up">
+                <input type="submit" value="Sign Up" class="submit">
                 <p class="signup">Already have an account?
                   <br>
                   <a href="#" v-on:click="isSignUp = !isSignUp">Sign in</a>
@@ -78,47 +78,6 @@
 
         </div>
       </section>
-
-      <div class="footer">
-        <div class="container">
-          <div class="row">
-
-            <div class="footer-col">
-              <h4 class="firstHeadline">About Us</h4>
-              <ul>
-                <li class="aboutUs">
-                  <a href="#">The Project</a>
-                  <a href="#">The Team</a>
-                  <a href="#">Our Partners</a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="footer-col">
-              <h4 class="secondHeadline">Help</h4>
-              <ul>
-                <li class="help">
-                  <a href="#">Support</a>
-                  <a href="#">FAQ</a>
-                  <a href="#">AGB</a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="footer-col">
-              <h4 class="thirdHeadline">Follow Us</h4>
-              <ul>
-                <li class="social-links">
-                  <a href="#">
-                    <i class="fa fa-instagram fa-2x"/>
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </div>
 
     </div>
 
@@ -167,137 +126,22 @@ export default {
   background: #213737;
 }
 
+.logo {
+  left: -3vh;
+  top: 1vh;
+}
+
 .logo a {
   color: white;
 }
 
 .menu-icon {
+  left: 3vh;
+  top: 1vh;
+
   &__line, &__line:before, &__line::after {
     background-color: white;
   }
-}
-
-
-/* footer styling */
-
-.footer {
-  position: fixed;
-  display: flex;
-  left: 0;
-  top: 90%;
-  width: 100vw;
-  height: 8vh;
-  z-index: 3;
-  background: white;
-}
-
-.container {
-  position: relative;
-  background: darkorange;
-  padding: 40px;
-  width: 100%;
-  height: 96%;
-  margin: auto;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.footer-col {
-  width: 25%;
-}
-
-.footer-col h4 {
-  text-align: center;
-  text-transform: uppercase;
-  position: relative;
-  letter-spacing: 2px;
-  font-size: 24px;
-  color: white;
-  left: 50%;
-  top: -20px;
-}
-
-
-.footer-col h4::before {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  background-color: black;
-  height: 2px;
-  box-sizing: border-box;
-  width: 65px;
-}
-
-.footer-col ul li a {
-  position: sticky;
-  text-align: left;
-  font-size: 20px;
-  width: 140px;
-  text-decoration: none;
-  font-weight: 300;
-  color: white;
-  display: block;
-  transition: all 0.3s ease;
-  left: 8000%;
-  margin: 0 -60px;
-}
-
-.aboutUs {
-  position: relative;
-  left: 6px;
-}
-
-.help {
-  position: relative;
-  left: 44px;
-}
-
-.social-links {
-  position: relative;
-  left: -13.5px;
-  top: 5px;
-}
-
-.fa-instagram {
-  position: relative;
-  top: 14px;
-  color: black;
-  left: 1px;
-}
-
-.footer-col .social-links a {
-  height: 65px;
-  width: 65px;
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-  margin: 0 10px 10px 0;
-  row-gap: 10px;
-  text-align: center;
-  border-radius: 50%;
-  color: black;
-  transition: all 0.5s ease;
-}
-
-.footer-col h4:hover {
-  cursor: default;
-}
-
-.footer-col .aboutUs a:hover {
-  color: black;
-  padding-left: 8px;
-}
-
-.footer .help a:hover {
-  color: black;
-  padding-left: 8px;
-}
-
-.footer-col .social-links a:hover {
-  color: #24262b;
-  background-color: #ffffff;
 }
 
 /* login / signin styling */
@@ -309,18 +153,17 @@ section {
   justify-content: center;
   align-items: center;
   padding: 40px;
-  transition: 0.5s;
 
   .container {
     position: relative;
-    width: 1200px;
-    height: 750px;
+    width: 1400px;
+    height: 850px;
     background: white;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
   }
 
   .user-login {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -377,7 +220,7 @@ section {
       border: none;
       outline: none;
       box-shadow: none;
-      font-size: 20px;
+      font-size: 1vh;
       letter-spacing: 2px;
       margin: 10px 0;
       top: 25px;
@@ -386,7 +229,7 @@ section {
 
     input[type="submit"] {
       cursor: pointer;
-      max-width: 210px;
+      max-width: 260px;
       transition: 0.5s;
       background-color: darkslategrey;
       color: white;
@@ -395,6 +238,16 @@ section {
     .login-btn {
       position: relative;
       left: 20px;
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-btn-apple {
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-btn:hover, .login-btn-apple:hover {
+      background: brown;
+      color: black;
     }
 
     .signup {
@@ -410,7 +263,12 @@ section {
       font-weight: 600;
       text-decoration: none;
       color: darkslategrey;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
+      transition: color 0.5s ease-in-out;
+    }
+
+    a:hover{
+      color: brown;
     }
   }
 
@@ -420,6 +278,7 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
+    transition: display 0.5s ease-in-out;
 
     .site-background {
       position: relative;
@@ -480,13 +339,22 @@ section {
       color: black;
     }
 
+    .submit{
+      box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .submit:hover{
+      background: brown;
+      color: black;
+    }
+
     input[type="submit"] {
       cursor: pointer;
-      max-width: 210px;
+      max-width: 260px;
       transition: 0.5s;
       background-color: darkslategrey;
       color: white;
-      left: 52%;
+      left: 51.8%;
     }
 
     .signup {
@@ -496,7 +364,7 @@ section {
       font-size: 20px;
       text-transform: uppercase;
       letter-spacing: 2px;
-      top: -85px;
+      top: -65px;
     }
 
     a {
@@ -504,84 +372,17 @@ section {
       font-weight: 600;
       text-decoration: none;
       color: darkslategrey;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
+      transition: color 0.5s ease-in-out;
+    }
+
+    a:hover{
+      color: brown;
     }
   }
 }
 
-.toggleOff {
-  display: none;
-}
-
 @media (max-height: 1440px) {
-
-  /* footer styling */
-
-  .footer {
-    position: fixed;
-    display: flex;
-    left: 0;
-    top: 87.5%;
-    width: 100vw;
-    height: 10.5vh;
-    z-index: 3;
-    background: white;
-  }
-
-  .footer-col h4 {
-    letter-spacing: 2px;
-    font-size: 12px;
-  }
-
-  .footer-col h4::before {
-    bottom: -7px;
-    height: 2px;
-    width: 43px;
-  }
-
-  .footer-col ul li a {
-    font-size: 12px;
-    width: 120px;
-    top: 13px;
-  }
-
-  .aboutUs {
-    position: relative;
-    left: 2px;
-    top: -6px;
-  }
-
-  .help {
-    left: 30px;
-    top: -6px;
-  }
-
-  .social-links {
-    left: -23px;
-    top: 5px;
-  }
-
-  .fa-instagram {
-    top: 2px;
-    left: 0.5px;
-  }
-
-  .footer-col .social-links a {
-    height: 37px;
-    width: 37px;
-    margin: 0 7px 7px 0;
-    line-height: 27px;
-    top: 20px;
-    left: 76%;
-  }
-
-  .footer-col .aboutUs a:hover {
-    padding-left: 5px;
-  }
-
-  .footer .help a:hover {
-    padding-left: 5px;
-  }
 
   /* login / signin styling */
 
@@ -589,8 +390,8 @@ section {
     padding: 27px;
 
     .container {
-      width: 800px;
-      height: 500px;
+      width: 900px;
+      height: 600px;
       box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
     }
 
@@ -615,24 +416,23 @@ section {
 
       input {
         padding: 13px;
-        font-size: 13px;
         letter-spacing: 2px;
         margin: 7px 0;
         top: 17px;
       }
 
       input[type="submit"] {
-        max-width: 140px;
+        max-width: 165px;
       }
 
       .login-btn {
-        left: 13px;
+        left: 14px;
       }
 
       .signup {
         margin-top: 200px;
-        font-size: 8px;
         letter-spacing: 1px;
+        font-size: 0.1vh;
       }
 
       a {
@@ -650,7 +450,7 @@ section {
         font-size: 20px;
         letter-spacing: 3px;
         margin-bottom: 7px;
-        top: 70px;
+        top: 60px;
       }
 
       h2:after {
@@ -664,18 +464,19 @@ section {
         font-size: 13px;
         letter-spacing: 2px;
         margin: 7px 0;
-        top: 87px;
+        top: 77px;
       }
 
       input[type="submit"] {
-        max-width: 140px;
+        max-width: 165px;
+        left: 52%;
       }
 
       .signup {
         margin-top: 187px;
-        font-size: 13px;
         letter-spacing: 1px;
         top: -57px;
+        font-size: 0.1vh;
       }
 
       a {
@@ -687,83 +488,14 @@ section {
 
 @media (max-height: 1080px) {
 
-  /* footer styling */
-
-  .footer {
-    position: fixed;
-    display: flex;
-    left: 0;
-    top: 83.5%;
-    width: 100vw;
-    height: 14vh;
-    z-index: 3;
-    background: white;
-  }
-
-  .footer-col h4 {
-    letter-spacing: 1px;
-    font-size: 12px;
-  }
-
-  .footer-col h4::before {
-    bottom: -5px;
-    height: 1px;
-    width: 32.5px;
-  }
-
-  .footer-col ul li a {
-    font-size: 10px;
-    width: 118px;
-    top: 10px;
-    left: 78%;
-  }
-
-  .aboutUs {
-    position: relative;
-    left: 2px;
-    top: -6px;
-  }
-
-  .help {
-    left: 30px;
-    top: -6px;
-  }
-
-  .social-links {
-    left: -23px;
-    top: -1px;
-  }
-
-  .fa-instagram {
-    top: -4px;
-    left: 0.5px;
-  }
-
-  .footer-col .social-links a {
-    height: 37px;
-    width: 37px;
-    margin: 0 7px 7px 0;
-    line-height: 27px;
-    top: 20px;
-    left: 76%;
-  }
-
-  .footer-col .aboutUs a:hover {
-    padding-left: 5px;
-  }
-
-  .footer .help a:hover {
-    padding-left: 5px;
-  }
-
   /* login / signin styling */
 
   section {
     padding: 20px;
 
     .container {
-      width: 600px;
-      height: 375px;
+      width: 700px;
+      height: 425px;
       box-shadow: 0 7.5px 25px rgba(0, 0, 0, 0.6);
     }
 
@@ -795,7 +527,7 @@ section {
       }
 
       input[type="submit"] {
-        max-width: 105px;
+        max-width: 130px;
       }
 
       .login-btn {
@@ -805,8 +537,8 @@ section {
       .signup {
         position: relative;
         margin-top: 150px;
-        font-size: 4px;
         letter-spacing: 1px;
+        font-size: 0.1vh;
       }
 
       a {
@@ -824,7 +556,7 @@ section {
         font-size: 15px;
         letter-spacing: 2px;
         margin-bottom: 5px;
-        top: 37.5px;
+        top: 25px;
       }
 
       h2:after {
@@ -838,18 +570,18 @@ section {
         font-size: 6px;
         letter-spacing: 2px;
         margin: 5px 0;
-        top: 57.5px;
+        top: 45px;
       }
 
       input[type="submit"] {
-        max-width: 105px;
+        max-width: 130px;
       }
 
       .signup {
         margin-top: 140px;
-        font-size: 4px;
         letter-spacing: 1px;
-        top: -42.5px;
+        top: -30px;
+        font-size: 0.1vh;
       }
 
       a {
