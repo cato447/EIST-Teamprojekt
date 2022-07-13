@@ -31,7 +31,7 @@ public class RecipeSearch {
 
     public RecipeSearch(){
         rnd = new Random();
-        dotenv = Dotenv.load();
+        dotenv = Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
         recipeInformation = new RecipeInformation();
         client = new OkHttpClient();
     }

@@ -23,7 +23,7 @@ public class RecipeInformation {
     private final OkHttpClient client;
 
     public RecipeInformation(){
-        dotenv = Dotenv.load();
+        dotenv = Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
         client = new OkHttpClient();
     }
 

@@ -5,7 +5,7 @@ import okhttp3.Request;
 
 public class APIAuthentication {
 
-    private static Dotenv dotenv = Dotenv.load();
+    private static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
 
     private APIAuthentication(){
     }
