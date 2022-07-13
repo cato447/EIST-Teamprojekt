@@ -92,3 +92,7 @@ out
 !gradle/wrapper/gradle-wrapper.jar
 
 frontend/src/index.js
+
+.env
+
+.DS_Store
