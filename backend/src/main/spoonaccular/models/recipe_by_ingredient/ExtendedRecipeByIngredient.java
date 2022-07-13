@@ -56,4 +56,10 @@ public class ExtendedRecipeByIngredient extends Recipe {
         this.usedIngredients = usedIngredients;
     }
 
+    public void addMissingInfo(RecipeByIngredient recipeByIngredient){
+        this.setMissedIngredientCount(recipeByIngredient.getMissedIngredientCount());
+        this.setUsedIngredientCount(recipeByIngredient.getUsedIngredientCount());
+        this.setMissedIngredients(recipeByIngredient.getMissedIngredients());
+        this.setUsedIngredients(recipeByIngredient.getUsedIngredients());
+    }
 }
