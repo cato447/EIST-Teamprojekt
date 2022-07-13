@@ -19,27 +19,25 @@ import java.util.stream.Collectors;
 @Component
 public class RecipeInformation {
 
-    private final Dotenv dotenv;
-    private final OkHttpClient client;
+    private final static Dotenv dotenv = Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
+    private final static OkHttpClient client = new OkHttpClient();
 
-    public RecipeInformation(){
-        dotenv = Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
-        client = new OkHttpClient();
+    private RecipeInformation(){
     }
 
-    public List<Recipe> getRecipeFromIds(List<Integer> ids) throws IOException {
+    public static List<Recipe> getRecipeFromIds(List<Integer> ids) throws IOException {
         String idsString = ids.stream().map(String::valueOf)
                 .collect(Collectors.joining(","));
         return new ObjectMapper().readValue(queryInformationBulk(idsString).body().string(), new TypeReference<>(){});
     }
 
-    public List<ExtendedRecipeByIngredient> getExtendedRecipeFromIds(List<Integer> ids) throws IOException {
+    public static List<ExtendedRecipeByIngredient> getExtendedRecipeFromIds(List<Integer> ids) throws IOException {
         String idsString = ids.stream().map(String::valueOf)
                 .collect(Collectors.joining(","));
         return new ObjectMapper().readValue(queryInformationBulk(idsString).body().string(), new TypeReference<>() {});
     }
 
-    private Response queryInformationBulk(String idsString) throws IOException {
+    private static Response queryInformationBulk(String idsString) throws IOException {
         Request request = APIAuthentication.addAuthHeaders(new Request.Builder()
                         .url("https://" + dotenv.get("X-RapidAPI-Host") +
                                 "/recipes/informationBulk?ids=" + idsString))
@@ -47,7 +45,7 @@ public class RecipeInformation {
         return client.newCall(request).execute();
     }
 
-    public List<ExtendedRecipeByIngredient> getRecepieByIngredientsExtended(List<RecipeByIngredient> recipeByIngredients) throws IOException {
+    public static List<ExtendedRecipeByIngredient> getRecepieByIngredientsExtended(List<RecipeByIngredient> recipeByIngredients) throws IOException {
         List<Integer> ids = recipeByIngredients.stream().map(RecipeByIngredient::getId).toList();
         List<ExtendedRecipeByIngredient> extendedRecipeByIngredients = getExtendedRecipeFromIds(ids);
         Iterator<RecipeByIngredient> recipeByIngredientIterator = recipeByIngredients.iterator();
