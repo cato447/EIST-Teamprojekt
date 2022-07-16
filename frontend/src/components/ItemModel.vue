@@ -15,8 +15,6 @@
             <a>Storage</a>
           </div>
 
-          <span class="divider"></span>
-
           <input type="checkbox" class="menu-btn" id="menu-btn">
           <label for="menu-btn" class="menu-icon">
             <span class="menu-icon__line"></span>
@@ -24,28 +22,23 @@
 
           <ul class="nav-links">
             <li class="nav-link">
-              <router-link to="/">Home</router-link>
-            </li>
-            <li class="nav-link">
-              <router-link to="/profile">Profile</router-link>
-            </li>
-            <li class="nav-link">
-              <router-link to="/recipes">Recipes</router-link>
-            </li>
-            <li class="nav-link">
-              <router-link to="/shoppinglist">Shoppinglist</router-link>
+              <a href="/#/login">Sign up</a>
             </li>
           </ul>
         </div>
 
+        <div class="nav-background"/>
+
         <!-- input field -->
 
-        <div class="inputField-header">
-          <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder=" " v-model="newItem"
-                 @keyup.enter="addItem"/>
-          <label for="inputTextField" class="formLabel">
-            Add here ...
-          </label>
+        <div class="field-header-box">
+          <div class="inputField-header">
+            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"
+                   @keyup.enter="addItem"/>
+            <label for="inputTextField" class="formLabel">
+              Add here ...
+            </label>
+          </div>
         </div>
 
         <!-- response element -->
@@ -201,7 +194,7 @@ export default Items
 body{
   margin: 0;
   padding: 0;
-  background-color:darkcyan;
+  background-color: #213737;
 }
 
 .main {
@@ -212,23 +205,45 @@ body{
   justify-content: center;
   align-items: center;
   font-size: 1.25vh;
-  background-color: darkcyan;
+  background-color: #213737;
+}
+
+/* navbar-background */
+
+.nav-background{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  background: #213737;
+  width: 100vw;
+  height: 15vh;
 }
 
 /* input field styling */
 
-.inputField-header {
+.field-header-box{
   z-index: 3;
   position: fixed;
+  width: 100vw;
+  height: 5vh;
+  left: 0;
+  top: 10vh;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+}
+
+.inputField-header {
+  position: relative;
+  z-index: 5;
   width: 20vh;
-  left: 50%;
-  transform: translateX(-50%);
+  height: 3vh;
 }
 
 .newItemName {
   z-index: 3;
   position: relative;
-  top: -65.5vh; // 0,65 of height
   left: 0;
   width: 100%;
   height: 100%;
@@ -236,11 +251,11 @@ body{
   border-radius: 0.4411764705882353vh; // times 2 of border
   font-family: inherit;
   font-size: inherit;
-  color: black;
+  color: white;
   outline: none;
   padding: 0.5vh;// size of font
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); // 0.5 size of font and 1.5 size of font
-  background: darkcyan;
+  background: #213737;
 }
 
 .newItemName:hover {
@@ -293,9 +308,11 @@ body{
   position: absolute;
   top: 80%;
   left: 50%;
-
+  width: 0;
+  height: 0;
   font-size: 20px;
   margin-left: 30px;
+  border: 1px solid black;
 }
 
 .item-list{
@@ -317,9 +334,7 @@ body{
     font-family: Montserrat, sans-serif;
     list-style: none;
     background: darkslategrey;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
     display: flex;
-
     padding: 100px;
     width: 300px;
   }
@@ -394,21 +409,25 @@ body{
   }
 }
 
-@media (max-width: 2299px) {
+@media (max-width: 2100px) {
   .item-list{
-    grid-template-columns: repeat(4, 2vh);
+    grid-template-columns: repeat(7, 2vh);
+  }
+
+  .item{
+    right: 4.1vw;
   }
 }
 
 @media (min-width: 2100px) {
   .item-list{
-    grid-template-columns: repeat(5, 2vh);
+    grid-template-columns: repeat(8, 2vh);
   }
 }
 
 @media (min-width: 2560px) {
   .item-list{
-    grid-template-columns: repeat(6, 2vh);
+    grid-template-columns: repeat(8, 2vh);
   }
 }
 
@@ -441,7 +460,6 @@ body{
 
     row-gap: 50px;
     column-gap: 230px;
-    grid-template-columns: repeat(4, 2vh);
 
     .item{
       width: 200px;
@@ -515,21 +533,6 @@ body{
       cursor: pointer;
     }
   }
-
-  @media (min-width: 1440px) {
-
-    .item-section{
-
-      font-size: 40/3 px;
-      margin-left: 24px;
-    }
-
-    .item-list{
-      grid-template-columns: repeat(9, 2vh)
-    }
-  }
 }
-
-
 
 </style>
