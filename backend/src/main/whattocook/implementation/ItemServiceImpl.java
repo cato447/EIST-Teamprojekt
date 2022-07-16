@@ -35,6 +35,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public Optional<Item> findByNameIgnoreCaseContaining(String name) {
+        return itemRepository.findByNameIgnoreCaseContaining(name);
+    }
+
+    @Override
     public Iterable<Item> findAll() {
         return itemRepository.findAll();
     }

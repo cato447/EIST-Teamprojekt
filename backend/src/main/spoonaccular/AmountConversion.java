@@ -21,14 +21,19 @@ public class AmountConversion {
         Request request = APIAuthentication.addAuthHeaders(
                 new Request.Builder()
                         .url("https://" + dotenv.get("X-RapidAPI-Host") +
-                        "recipes/convert?ingredientName=" + ingrdientName +
+                        "/recipes/convert?ingredientName=" + ingrdientName +
                         "&targetUnit=" + targetUnit +
                         "&sourceUnit=" + sourceUnit +
                         "&sourceAmount=" + sourceAmount)
         ).build();
         Response response = client.newCall(request).execute();
         String responseString = response.body().string();
-        return new ObjectMapper().readValue(responseString, ConvertedAmount.class).getTargetAmount();
+        try {
+            return new ObjectMapper().readValue(responseString, ConvertedAmount.class).getTargetAmount();
+        } catch (Exception e){
+            return 0;
+        }
+
     }
 
 }

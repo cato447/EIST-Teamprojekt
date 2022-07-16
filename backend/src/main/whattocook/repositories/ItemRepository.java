@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
     Optional<Item> findByName(String name);
+    Optional<Item> findByNameIgnoreCaseContaining(String name);
 }

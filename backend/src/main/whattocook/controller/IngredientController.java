@@ -13,6 +13,7 @@ import whattocook.models.Item;
 import whattocook.services.ItemService;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +25,11 @@ public class IngredientController {
     ItemService itemService;
 
     @DeleteMapping("/ingredient/removeRecipeIngredients")
-    public void removeRecipeIngredients(@RequestParam int id) throws IOException, JSONException {
+    public List<Item> removeRecipeIngredients(@RequestParam int id) throws IOException, JSONException {
         List<Ingredient> ingredientList = RecipeInformation.getIngredientList(id);
+        List<Item> changedItemList = new LinkedList<>();
         for (Ingredient ingredient : ingredientList){
-            Optional<Item> possibleItem = itemService.findByName(ingredient.getName());
+            Optional<Item> possibleItem = itemService.findByNameIgnoreCaseContaining(ingredient.getName());
             if (possibleItem.isPresent()){
                 Item item = possibleItem.get();
                 double newItemQuantity;
@@ -42,12 +44,15 @@ public class IngredientController {
                     newItemQuantity = item.getQuantity() - ingridientAmount;
                 }
                 if (newItemQuantity > 0){
-                    item.setQuantity(newItemQuantity);
+                    item.setQuantity(newItemQuantity);  
+                    itemService.save(item);
                 } else {
                     itemService.deleteById(item.getId());
                 }
+                changedItemList.add(item);
             }
         }
+        return changedItemList;
     }
 
 
