@@ -12,7 +12,7 @@
 
         <div class="navbar-header">
           <div class="logo">
-            <a>Storage</a>
+            <a>Recipes</a>
           </div>
 
           <input type="checkbox" class="menu-btn" id="menu-btn">
@@ -25,7 +25,7 @@
               <a href="/#/login">Sign up</a>
             </li>
             <li class="nav-link">
-              <a href="/#/recipes">Recipes</a>
+              <a href="/#/">Storage</a>
             </li>
           </ul>
         </div>
@@ -34,33 +34,63 @@
 
         <!-- input field -->
 
-        <div class="field-header-box">
-          <div class="inputField-header">
-            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"
-                   @keyup.enter="addItem"/>
-            <label for="inputTextField" class="formLabel">
-              Add here ...
-            </label>
-          </div>
+        <div>
+          <v-item-group>
+            <v-container>
+              <v-row>
+                <v-col
+                    v-for="recipe in recipes"
+                    :key="recipe.id"
+                    cols="4"
+                    md="3"
+                >
+                  <v-item>
+                    <v-card
+                        class="mx-auto"
+                        max-width="400"
+                    >
+                      <v-img
+                          class="white--text align-end"
+                          height="200px"
+                          :src="recipe.image"
+                      >
+                        <v-card-title>{{recipe.title}}</v-card-title>
+                      </v-img>
+
+                      <v-card-subtitle class="pb-0">
+                        {{ recipe.spoonacularSourceUrl }}
+                      </v-card-subtitle>
+
+                      <v-card-text class="text--primary">
+                        <div>Whitehaven Beach</div>
+
+                        <div>Whitsunday Island, Whitsunday Islands</div>
+                      </v-card-text>
+
+                      <v-card-actions>
+                        <v-btn
+                            color="orange"
+                            text
+                        >
+                          Share
+                        </v-btn>
+
+                        <v-btn
+                            color="orange"
+                            text
+                        >
+                          Explore
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-item>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-item-group>
         </div>
 
-        <!-- response element -->
 
-        <div class="item-section" v-show="items.length" v-cloak>
-          <ul class="item-list">
-            <li v-for="item in items"
-                class="item"
-                :key="item.id">
-              <div class="view">
-                <label class="item-name" @dblclick="editItem(item)">
-                  <span class="item-name-fame">{{ item.name.toUpperCase() }} </span>
-                  <span class="item-information-frame">{{ item.quantity }} {{ item.unit.toLowerCase() }}</span>
-                </label>
-                <button class="destroy" @click="removeItem(item)"></button>
-              </div>
-            </li>
-          </ul>
-        </div>
       </div>
     </section>
 
@@ -68,16 +98,49 @@
   </body>
 </template>
 
+        <!-- input field -->
+
+<!--        <div class="field-header-box">-->
+<!--          <div class="inputField-header">-->
+<!--            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"-->
+<!--                   @keyup.enter="addItem"/>-->
+<!--            <label for="inputTextField" class="formLabel">-->
+<!--              Add here ...-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <!-- Recipe element -->
 
 
 
+
+
+
+        <!-- response element -->
+
+<!--        <div class="item-section" v-show="items.length" v-cloak>-->
+<!--          <ul class="item-list">-->
+<!--            <li v-for="item in items"-->
+<!--                class="item"-->
+<!--                :key="item.id">-->
+<!--              <div class="view">-->
+<!--                <label class="item-name" @dblclick="editItem(item)">-->
+<!--                  <span class="item-name-fame">{{ item.name.toUpperCase() }} </span>-->
+<!--                  <span class="item-information-frame">{{ item.quantity }} {{ item.unit.toLowerCase() }}</span>-->
+<!--                </label>-->
+<!--                <button class="destroy" @click="removeItem(item)"></button>-->
+<!--              </div>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
 
 <script>
 
 import api from '../Api';
 
-const Items = {
-  name: 'Items',
+const Recipes = {
+  name: 'Recipes',
   props: {
     activeUser: Object
   },
@@ -85,9 +148,7 @@ const Items = {
   // app initial state
   data: function () {
     return {
-      items: [],
-      newItem: '',
-      editedItem: null,
+      recipes: [],
       loading: true,
       error: null,
       id: 0
@@ -95,75 +156,21 @@ const Items = {
   },
 
   mounted() {
-    api.getAll()
+    api.getRecipesForFridge()
         .then(response => {
           this.$log.debug("Data loaded: ", response.data)
-          this.items = response.data
+          this.recipes = response.data
         })
         .catch(error => {
           this.$log.debug(error)
-          this.error = "Failed to load items"
+          this.error = "Failed to load recipes"
         })
         .finally(() => this.loading = false)
   },
 
-  computed: {
-    userEmail: function () {
-      return this.activeUser ? this.activeUser.email : ''
-    },
-    inputPlaceholder: function () {
-      return this.activeUser ? this.activeUser.given_name + ', what do you want to add?' : 'What needs to be added'
-    }
-  },
 
-  methods: {
-    addItem: function () {
-      const value = this.newItem && this.newItem.trim();
-      if (!value) {
-        return
-      }
-
-      const components = value.split(' ');
-
-      api.createNew(components[0],
-          parseInt(components[1].replace(/[^\d.]/g, '')),
-          components[1].replace(/[0-9]/g, '') === 'ml' ? 'MILLILETERS' : "GRAMMS"
-      ).then((response) => {
-        this.$log.debug("New item created:", response);
-        this.items.push({
-          id: response.data.id,
-          name: components[0],
-          quantity: parseInt(components[1].replace(/[^\d.]/g, '')),
-          unit: components[1].replace(/[0-9]/g, '') === 'MILLILETERS' ? 'ml' : 'g'
-        })
-      }).catch((error) => {
-        this.$log.debug(error);
-        this.error = "Failed to add item"
-      });
-
-      this.newItem = ''
-    },
-
-    removeItem: function (item) { // notice NOT using "=>" syntax
-      api.removeForId(item.id).then(() => {
-        this.$log.debug("Item removed:", item);
-        this.items.splice(this.items.indexOf(item), 1)
-      }).catch((error) => {
-        this.$log.debug(error);
-        this.error = "Failed to remove item"
-      })
-    }
-  },
-
-  directives: {
-    'item-focus': function (el, binding) {
-      if (binding.value) {
-        el.focus()
-      }
-    }
-  }
 }
-export default Items
+export default Recipes
 </script>
 
 
@@ -307,14 +314,12 @@ body{
 /* item section */
 
 .item-section{
-  z-index: 2;
-  position: absolute;
-  top: 80%;
-  left: 50%;
+  z-index: 0;
+  position: center;
   width: 0;
   height: 0;
   font-size: 20px;
-  margin-left: 30px;
+  margin-left: 0px;
   border: 1px solid black;
 }
 

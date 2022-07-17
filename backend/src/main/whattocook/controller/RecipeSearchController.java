@@ -17,7 +17,7 @@ import java.util.List;
 @RestController()
 @BasePathAwareController()
 public class RecipeSearchController {
-    private final int nextRecipes=10;
+    private final int nextRecipes=12;
     private final int nextRecipesForOneRandom = 20;
 
     @Autowired
