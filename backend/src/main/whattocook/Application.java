@@ -11,7 +11,7 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"spoonaccular", "whattocook"})
 public class Application {
 
 	public static void main(String[] args) {
