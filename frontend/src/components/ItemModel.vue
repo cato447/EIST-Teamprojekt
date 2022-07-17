@@ -115,12 +115,12 @@ const Items = {
 
   methods: {
     addItem: function () {
-      var value = this.newItem && this.newItem.trim()
+      const value = this.newItem && this.newItem.trim();
       if (!value) {
         return
       }
 
-      var components = value.split(' ')
+      const components = value.split(' ');
 
       api.createNew(components[0],
           parseInt(components[1].replace(/[^\d.]/g, '')),
