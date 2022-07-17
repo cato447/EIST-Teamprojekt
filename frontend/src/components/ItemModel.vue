@@ -35,14 +35,67 @@
         <!-- input field -->
 
         <div class="field-header-box">
-          <div class="inputField-header">
-            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"
-                   @keyup.enter="addItem"/>
-            <label for="inputTextField" class="formLabel">
-              Add here ...
-            </label>
-          </div>
+<!--          <div class="inputField-header">-->
+<!--            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"-->
+<!--                   @keyup.enter="addItem"/>-->
+<!--            <label for="inputTextField" class="formLabel">-->
+<!--              Add here ...-->
+<!--            </label>-->
+          <v-row>
+            <v-col cols="3">
+              <v-text-field
+                  label="Ingredient"
+                  value=""
+                  v-model="newItem"
+                  @keyup.enter="addItem"
+                  required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="2">
+              <v-text-field
+                  label="Quantity"
+                  required
+                  v-model="newQuantity"
+                  @keyup.enter="addItem"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="1">
+                <p>Unit</p>
+
+                <v-btn-toggle
+                    v-model="newUnit"
+                    tile
+                    color="deep-purple accent-3"
+                    group
+                    mandatory
+
+                >
+                  <v-btn value="units">
+                    units
+                  </v-btn>
+
+                  <v-btn value="g">
+                    g
+                  </v-btn>
+
+                  <v-btn value="ml">
+                    ml
+                  </v-btn>
+
+                </v-btn-toggle>
+            </v-col>
+            <v-col cols="1">
+<!--              <v-btn-->
+<!--                  elevation="2"-->
+<!--                  fab-->
+<!--                  @click="addItem"-->
+<!--              ><v-icon>mdi-plus</v-icon>-->
+<!--              </v-btn>-->
+            </v-col>
+          </v-row>
         </div>
+        
+
 
         <!-- response element -->
 
@@ -87,6 +140,8 @@ const Items = {
     return {
       items: [],
       newItem: '',
+      newQuantity: 0,
+      newUnit: '',
       editedItem: null,
       loading: true,
       error: null,
@@ -112,29 +167,29 @@ const Items = {
       return this.activeUser ? this.activeUser.email : ''
     },
     inputPlaceholder: function () {
-      return this.activeUser ? this.activeUser.given_name + ', what do you want to add?' : 'What needs to be added'
+      return this.activeUser ? this.activeUser.given_name + ', What do you want to add?' : 'What needs to be added?'
     }
   },
 
   methods: {
     addItem: function () {
-      const value = this.newItem && this.newItem.trim();
-      if (!value) {
+      const addableItem = this.newItem && this.newItem.trim();
+      const addableQuantity = parseInt(this.newQuantity);
+      const addableUnit = this.newUnit;
+      if (!addableItem) {
         return
       }
 
-      const components = value.split(' ');
-
-      api.createNew(components[0],
-          parseInt(components[1].replace(/[^\d.]/g, '')),
-          components[1].replace(/[0-9]/g, '') === 'ml' ? 'MILLILETERS' : "GRAMMS"
+      api.createNew(addableItem,
+          addableQuantity,
+          addableUnit
       ).then((response) => {
         this.$log.debug("New item created:", response);
         this.items.push({
           id: response.data.id,
-          name: components[0],
-          quantity: parseInt(components[1].replace(/[^\d.]/g, '')),
-          unit: components[1].replace(/[0-9]/g, '') === 'MILLILETERS' ? 'ml' : 'g'
+          name: addableItem,
+          quantity: addableQuantity,
+          unit: addableUnit
         })
       }).catch((error) => {
         this.$log.debug(error);
@@ -165,10 +220,6 @@ const Items = {
 }
 export default Items
 </script>
-
-
-
-
 
 
 <style lang="scss">
@@ -225,23 +276,23 @@ body{
 
 /* input field styling */
 
-.field-header-box{
-  z-index: 3;
-  position: fixed;
-  width: 100vw;
-  height: 5vh;
-  left: 0;
-  top: 10vh;
-  display: grid;
-  align-content: center;
-  justify-content: center;
-}
+//.field-header-box{
+//  z-index: 3;
+//  position: center;
+//  width: 200vw;
+//  height: 5vh;
+//  left: 0;
+//  top: 10vh;
+//  display: grid;
+//  align-content: center;
+//  justify-content: center;
+//}
 
 .inputField-header {
   position: relative;
   z-index: 5;
   width: 20vh;
-  height: 3vh;
+  height: 2vh;
 }
 
 .newItemName {
