@@ -29,14 +29,14 @@ final class ItemTests {
 
     @Test
     public void saveTest() {
-        Item item = new Item("kartoffel", Unit.GRAMMS, 5000);
+        Item item = new Item("kartoffel", Unit.g, 5000);
         itemRepository.save(item);
         assertTrue(itemRepository.existsById(item.getId()));
     }
 
     @Test
     public void findByIDTest() {
-        Item item = new Item("tortillias", Unit.GRAMMS, 5000);
+        Item item = new Item("tortillias", Unit.g, 5000);
         itemRepository.save(item);
         assertEquals(item, itemRepository.findById(item.getId()).get());
     }
@@ -49,7 +49,7 @@ final class ItemTests {
 
     @Test
     public void findByNameTest(){
-        Item item = new Item("tortillias", Unit.GRAMMS, 5000);
+        Item item = new Item("tortillas", Unit.g, 5000);
         itemRepository.save(item);
         assertEquals(item, itemRepository.findByName(item.getName()).get());
     }
@@ -57,11 +57,11 @@ final class ItemTests {
     @Test
     public void findAllTest() {
         List<Item> savedItems = new ArrayList();
-        savedItems.add( new Item("nachos", Unit.GRAMMS, 5000));
-        savedItems.add( new Item("wurst", Unit.GRAMMS, 5000));
-        savedItems.add( new Item("schinken", Unit.GRAMMS, 5000));
-        savedItems.add( new Item("brokkoli", Unit.GRAMMS, 5000));
-        savedItems.add( new Item("eiscreme", Unit.GRAMMS, 5000));
+        savedItems.add( new Item("nachos", Unit.g, 5000));
+        savedItems.add( new Item("wurst", Unit.g, 5000));
+        savedItems.add( new Item("schinken", Unit.g, 5000));
+        savedItems.add( new Item("brokkoli", Unit.g, 5000));
+        savedItems.add( new Item("eiscreme", Unit.g, 5000));
 
         itemRepository.saveAll(savedItems);
 
@@ -71,7 +71,7 @@ final class ItemTests {
 
     @Test
     public void deleteTest() {
-        Item item = new Item("elefantenfuß", Unit.GRAMMS, 5000);
+        Item item = new Item("elefantenfuß", Unit.g, 5000);
         itemRepository.save(item);
         assertEquals(item, itemRepository.findById(item.getId()).get());
         itemRepository.delete(item);
@@ -80,7 +80,7 @@ final class ItemTests {
 
     @Test
     public void updateTest() {
-        Item item = new Item("schokoküsse", Unit.GRAMMS, 5000);
+        Item item = new Item("schokoküsse", Unit.g, 5000);
         itemRepository.save(item);
         long itemCount = itemRepository.count();
         item.setQuantity(4574);
