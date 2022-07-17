@@ -2,10 +2,12 @@
 import ItemModel from "@/components/ItemModel";
 import LoginPage from "@/components/LoginPage";
 import Custom404Page from "@/components/Custom404Page";
+import RecipePage from "@/components/RecipeModel";
 
 const routes = {
   '/': ItemModel,
-  '/login': LoginPage
+  '/login': LoginPage,
+  '/recipes' : RecipePage
 }
 
 export default {
