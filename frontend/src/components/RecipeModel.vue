@@ -34,9 +34,7 @@
 
         <!-- input field -->
 
-        <div>
           <v-item-group>
-            <v-container>
               <v-row>
                 <v-col
                     v-for="recipe in recipes"
@@ -54,11 +52,11 @@
                           height="200px"
                           :src="recipe.image"
                       >
-                        <v-card-title>{{recipe.title}}</v-card-title>
                       </v-img>
 
+                      <v-card-title>{{recipe.title}}</v-card-title>
                       <v-card-subtitle class="pb-0">
-                        {{ recipe.spoonacularSourceUrl }}
+                        Ready in {{ recipe.readyInMinutes }} minutes
                       </v-card-subtitle>
 
                       <v-card-text class="text--primary">
@@ -68,17 +66,18 @@
                       </v-card-text>
 
                       <v-card-actions>
-                        <v-btn
-                            color="orange"
-                            text
-                        >
-                          Share
-                        </v-btn>
+<!--                        <v-btn-->
+<!--                            color="orange"-->
+<!--                            text-->
+<!--                        >-->
+<!--                          Share-->
+<!--                        </v-btn>-->
 
                         <v-btn
                             color="orange"
                             text
-                        >
+                            >
+<!--                            @click = ""-->
                           Explore
                         </v-btn>
                       </v-card-actions>
@@ -86,9 +85,7 @@
                   </v-item>
                 </v-col>
               </v-row>
-            </v-container>
           </v-item-group>
-        </div>
 
 
       </div>
@@ -305,11 +302,11 @@ body{
 
 /* Workaround for below WQHD resolution */
 
-@media screen and (max-height: 1400px) {
-  .formLabel{
-    opacity: 0;
-  }
-}
+//@media screen and (max-height: 1400px) {
+//  .formLabel{
+//    opacity: 0;
+//  }
+//}
 
 /* item section */
 
