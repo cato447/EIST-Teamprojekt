@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.*;
     "readyInMinutes",
     "servings",
     "image",
+    "sourceUrl",
     "spoonacularSourceUrl"
 })
 @Generated("jsonschema2pojo")
@@ -44,6 +45,8 @@ public class Recipe {
     private Integer servings;
     @JsonProperty("image")
     private String image;
+    @JsonProperty("sourceUrl")
+    private String sourceUrl;
     @JsonProperty("spoonacularSourceUrl")
     private String spoonacularSourceUrl;
 
@@ -145,6 +148,16 @@ public class Recipe {
     @JsonProperty("spoonacularSourceUrl")
     public void setSpoonacularSourceUrl(String spoonacularSourceUrl) {
         this.spoonacularSourceUrl = spoonacularSourceUrl;
+    }
+
+    @JsonProperty("sourceUrl")
+    public String getSourceUrl() {
+        return sourceUrl;
+    }
+
+    @JsonProperty("sourceUrl")
+    public void setSourceUrl(String sourceUrl) {
+        this.sourceUrl = sourceUrl;
     }
 
 }
