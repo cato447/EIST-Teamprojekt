@@ -91,10 +91,10 @@ out
 .gradle
 !gradle/wrapper/gradle-wrapper.jar
 
-frontend/src/index.js
+client/src/index.js
 
 .env
 
 .DS_Store
 
-backend/src/resources/application.yml
+server/src/resources/application.yml
