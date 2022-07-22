@@ -98,3 +98,5 @@ client/src/index.js
 .DS_Store
 
 server/src/resources/application.yml
+
+frontend/node_modules/
