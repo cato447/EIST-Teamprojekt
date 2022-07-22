@@ -22,5 +22,11 @@ export default {
         }]
     }),
 
+    getRandom: () => instance.get('/api/v1/recipe/random', {
+        transformResponse: [function (data) {
+            return data? JSON.parse(data) : data;
+        }]
+    }),
+
     removeForId: (id) => instance.delete('/api/v1/items/'+ id)
 }
