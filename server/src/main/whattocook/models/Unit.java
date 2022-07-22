@@ -2,5 +2,6 @@ package whattocook.models;
 
 public enum Unit {
     g,
-    ml
+    ml,
+    units
 }

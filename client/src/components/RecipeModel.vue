@@ -12,7 +12,7 @@
 
         <div class="navbar-header">
           <div class="logo">
-            <a>Storage</a>
+            <a>Recipes</a>
           </div>
 
           <input type="checkbox" class="menu-btn" id="menu-btn">
@@ -25,97 +25,87 @@
               <a href="/#/login">Sign up</a>
             </li>
             <li class="nav-link">
-              <a href="/#/recipes">Recipes</a>
+              <a href="/#/">Storage</a>
             </li>
           </ul>
         </div>
 
-        <div class="nav-background"/>
+
 
         <!-- input field -->
 
-        <div class="field-header-box">
-<!--          <div class="inputField-header">-->
-<!--            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"-->
-<!--                   @keyup.enter="addItem"/>-->
-<!--            <label for="inputTextField" class="formLabel">-->
-<!--              Add here ...-->
-<!--            </label>-->
-          <v-row>
-            <v-col cols="3">
-              <v-text-field
-                  label="Ingredient"
-                  value=""
-                  v-model="newItem"
-                  @keyup.enter="addItem"
-                  require
-                  dark
-              ></v-text-field>
-            </v-col>
-            <v-col cols="2">
-              <v-text-field
-                  label="Quantity"
-                  required
-                  v-model="newQuantity"
-                  @keyup.enter="addItem"
-                  dark
-              ></v-text-field>
-            </v-col>
-            <v-col cols="1">
-                <p>Unit</p>
+        <div>
 
-                <v-btn-toggle
-                    v-model="newUnit"
-                    tile
-                    color="deep-purple accent-3"
-                    group
-                    mandatory
+          <v-container
+              fluid
+              dark
+              style="background-color: transparent; height: 100%"
+          >
+            <v-row
+                align="align">
+              <v-col
+                  v-for="recipe in recipes"
+                  :key="recipe.id"
+                  cols="4"
+                  sm="3"
+              >
+                <v-item>
+                  <v-card
+                      class="pa-2"
+                      min-width="350"
+                      max-width="350"
+                      min-height="400"
+                      max-height="400"
+                      tile
+                      rounded = true
+                      color="#385F73"
+                      dark
+                  >
+                    <v-img
+                        class="white--text align-end"
+                        height="200px"
+                        :src="recipe.image"
+                    >
+                    </v-img>
 
-                >
-                  <v-btn value="units">
-                    units
-                  </v-btn>
+                    <v-card-title
+                        style="word-break: break-word"
+                    >{{ recipe.title }}</v-card-title>
+                    <v-card-subtitle class="pb-0">
+                      Ready in {{ recipe.readyInMinutes }} minutes
+                    </v-card-subtitle>
 
-                  <v-btn value="g">
-                    g
-                  </v-btn>
+                    <!--                      <v-card-text class="text&#45;&#45;primary">-->
+                    <!--                        <div>Whitehaven Beach</div>-->
 
-                  <v-btn value="ml">
-                    ml
-                  </v-btn>
+                    <!--                        <div>Whitsunday Island, Whitsunday Islands</div>-->
+                    <!--                      </v-card-text>-->
 
-                </v-btn-toggle>
-            </v-col>
-            <v-col cols="1">
-<!--              <v-btn-->
-<!--                  elevation="2"-->
-<!--                  fab-->
-<!--                  @click="addItem"-->
-<!--              ><v-icon>mdi-plus</v-icon>-->
-<!--              </v-btn>-->
-            </v-col>
-          </v-row>
+                    <v-card-actions
+                    >
+                      <!--                        <v-btn-->
+                      <!--                            color="orange"-->
+                      <!--                            text-->
+                      <!--                        >-->
+                      <!--                          Share-->
+                      <!--                        </v-btn>-->
+
+                      <v-btn
+                          :href="recipe.sourceUrl"
+                          text
+                      >
+                        <!--                            @click = ""-->
+                        Cook
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-item>
+              </v-col>
+            </v-row>
+          </v-container>
+
         </div>
-        
 
-
-        <!-- response element -->
-
-        <div class="item-section" v-show="items.length" v-cloak>
-          <ul class="item-list">
-            <li v-for="item in items"
-                class="item"
-                :key="item.id">
-              <div class="view">
-                <label class="item-name" @dblclick="editItem(item)">
-                  <span class="item-name-fame">{{ item.name.toUpperCase() }} </span>
-                  <span class="item-information-frame">{{ item.quantity }} {{ item.unit.toLowerCase() }}</span>
-                </label>
-                <button class="destroy" @click="removeItem(item)"></button>
-              </div>
-            </li>
-          </ul>
-        </div>
       </div>
     </section>
 
@@ -123,16 +113,12 @@
   </body>
 </template>
 
-
-
-
-
 <script>
 
 import api from '../Api';
 
-const Items = {
-  name: 'Items',
+const Recipes = {
+  name: 'Recipes',
   props: {
     activeUser: Object
   },
@@ -141,10 +127,7 @@ const Items = {
   data: function () {
     return {
       items: [],
-      newItem: '',
-      newQuantity: 0,
-      newUnit: '',
-      editedItem: null,
+      recipes: [],
       loading: true,
       error: null,
       id: 0
@@ -152,77 +135,59 @@ const Items = {
   },
 
   mounted() {
-    api.getAll()
-        .then(response => {
-          this.$log.debug("Data loaded: ", response.data)
-          this.items = response.data
-        })
-        .catch(error => {
-          this.$log.debug(error)
-          this.error = "Failed to load items"
-        })
-        .finally(() => this.loading = false)
-  },
-
-  computed: {
-    userEmail: function () {
-      return this.activeUser ? this.activeUser.email : ''
-    },
-    inputPlaceholder: function () {
-      return this.activeUser ? this.activeUser.given_name + ', What do you want to add?' : 'What needs to be added?'
-    }
+    this.populateRecipes()
   },
 
   methods: {
-    addItem: function () {
-      const addableItem = this.newItem && this.newItem.trim();
-      const addableQuantity = parseInt(this.newQuantity);
-      const addableUnit = this.newUnit;
-      if (!addableItem) {
-        return
-      }
-
-      api.createNew(addableItem,
-          addableQuantity,
-          addableUnit
-      ).then((response) => {
-        this.$log.debug("New item created:", response);
-        this.items.push({
-          id: response.data.id,
-          name: addableItem,
-          quantity: addableQuantity,
-          unit: addableUnit
-        })
-      }).catch((error) => {
-        this.$log.debug(error);
-        this.error = "Failed to add item"
-      });
-
-      this.newItem = ''
+    populateFromFridge() {
+      api.getRecipesForFridge()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.recipes = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load recipes"
+          })
+          .finally(() => this.loading = false)
     },
 
-    removeItem: function (item) { // notice NOT using "=>" syntax
-      api.removeForId(item.id).then(() => {
-        this.$log.debug("Item removed:", item);
-        this.items.splice(this.items.indexOf(item), 1)
-      }).catch((error) => {
-        this.$log.debug(error);
-        this.error = "Failed to remove item"
-      })
-    }
-  },
+    populateRandom() {
+      api.getRandom()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.recipes = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load recipes"
+          })
+          .finally(() => this.loading = false)
+    },
 
-  directives: {
-    'item-focus': function (el, binding) {
-      if (binding.value) {
-        el.focus()
-      }
+    populateRecipes() {
+      api.getAll()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.items = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load items"
+          })
+          .finally(() => {
+            if (this.items.length > 3) {
+              this.populateFromFridge()
+            } else {
+              this.populateRandom()
+            }
+          })
     }
   }
-}
-export default Items
-</script>
 
+}
+export default Recipes
+</script>
 
 <style lang="scss">
 
@@ -278,27 +243,23 @@ body{
 
 /* input field styling */
 
-
-
+//.field-header-box{
+//  z-index: 3;
+//  position: center;
+//  width: 200vw;
+//  height: 5vh;
+//  left: 0;
+//  top: 10vh;
+//  display: grid;
+//  align-content: center;
+//  justify-content: center;
+//}
 
 .inputField-header {
   position: relative;
   z-index: 5;
   width: 20vh;
   height: 2vh;
-}
-
-.field-header-box{
-  z-index: 3;
-  position: fixed;
-  width: 100vw;
-  height: 5vh;
-  left: 0;
-  top: 10vh;
-  display: grid;
-  align-content: center;
-  justify-content: center;
-  color: white
 }
 
 .newItemName {
@@ -355,11 +316,11 @@ body{
 
 /* Workaround for below WQHD resolution */
 
-@media screen and (max-height: 1400px) {
-  .formLabel{
-    opacity: 0;
-  }
-}
+//@media screen and (max-height: 1400px) {
+//  .formLabel{
+//    opacity: 0;
+//  }
+//}
 
 /* item section */
 

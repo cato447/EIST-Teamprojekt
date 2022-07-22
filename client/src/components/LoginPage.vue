@@ -114,12 +114,13 @@ export default {
   display: grid;
   justify-content: center;
   align-items: center;
-  background: #213737;
+  background: #006064;
 }
 
 .logo {
   left: -3vh;
   top: 1vh;
+  color: white;
 }
 
 .logo a {

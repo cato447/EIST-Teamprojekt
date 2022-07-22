@@ -36,6 +36,7 @@
 .menu-icon {
   position: relative;
   padding: 0.5vh 0.5vh;
+  top: 2vh;
   cursor: pointer;
   z-index: 1;
   display: none;
@@ -75,6 +76,7 @@
 .logo{
   position: relative;
   padding: 0.5vh 0.5vh;
+  top: 2vh;
 }
 
 .logo:hover {
