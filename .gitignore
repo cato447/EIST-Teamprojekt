@@ -100,3 +100,5 @@ client/src/index.js
 server/src/resources/application.yml
 
 frontend/node_modules/
+
+backend/src/resources/application.yml
