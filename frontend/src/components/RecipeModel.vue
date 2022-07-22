@@ -35,9 +35,7 @@
         <!-- input field -->
 
         <div>
-          <v-app>
 
-          </v-app>
           <v-container
               fluid
               dark
@@ -137,27 +135,59 @@ const Recipes = {
   },
 
   mounted() {
-    api.getRecipesForFridge()
-        .then(response => {
-          this.$log.debug("Data loaded: ", response.data)
-          this.recipes = response.data
-        })
-        .catch(error => {
-          this.$log.debug(error)
-          this.error = "Failed to load recipes"
-        })
-        .finally(() => this.loading = false)
+    this.populateRecipes()
   },
 
+  methods: {
+    populateFromFridge() {
+      api.getRecipesForFridge()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.recipes = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load recipes"
+          })
+          .finally(() => this.loading = false)
+    },
+
+    populateRandom() {
+      api.getRandom()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.recipes = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load recipes"
+          })
+          .finally(() => this.loading = false)
+    },
+
+    populateRecipes() {
+      api.getAll()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.items = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load items"
+          })
+          .finally(() => {
+            if (this.items.length > 3) {
+              this.populateFromFridge()
+            } else {
+              this.populateRandom()
+            }
+          })
+    }
+  }
 
 }
 export default Recipes
 </script>
-
-
-
-
-
 
 <style lang="scss">
 
