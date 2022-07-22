@@ -30,66 +30,83 @@
           </ul>
         </div>
 
-        <div class="nav-background"/>
+
 
         <!-- input field -->
 
         <div>
-          <v-item-group>
-            <v-container>
-              <v-row>
-                <v-col
-                    v-for="recipe in recipes"
-                    :key="recipe.id"
-                    cols="4"
-                    md="3"
-                >
-                  <v-item>
-                    <v-card
-                        class="mx-auto"
-                        max-width="400"
+          <v-app>
+
+          </v-app>
+          <v-container
+              fluid
+              dark
+              style="background-color: transparent; height: 100%"
+          >
+            <v-row
+                align="align">
+              <v-col
+                  v-for="recipe in recipes"
+                  :key="recipe.id"
+                  cols="4"
+                  sm="3"
+              >
+                <v-item>
+                  <v-card
+                      class="pa-2"
+                      min-width="350"
+                      max-width="350"
+                      min-height="400"
+                      max-height="400"
+                      tile
+                      rounded = true
+                      color="#385F73"
+                      dark
+                  >
+                    <v-img
+                        class="white--text align-end"
+                        height="200px"
+                        :src="recipe.image"
                     >
-                      <v-img
-                          class="white--text align-end"
-                          height="200px"
-                          :src="recipe.image"
+                    </v-img>
+
+                    <v-card-title
+                        style="word-break: break-word"
+                    >{{ recipe.title }}</v-card-title>
+                    <v-card-subtitle class="pb-0">
+                      Ready in {{ recipe.readyInMinutes }} minutes
+                    </v-card-subtitle>
+
+                    <!--                      <v-card-text class="text&#45;&#45;primary">-->
+                    <!--                        <div>Whitehaven Beach</div>-->
+
+                    <!--                        <div>Whitsunday Island, Whitsunday Islands</div>-->
+                    <!--                      </v-card-text>-->
+
+                    <v-card-actions>
+                      <!--                        <v-btn-->
+                      <!--                            color="orange"-->
+                      <!--                            text-->
+                      <!--                        >-->
+                      <!--                          Share-->
+                      <!--                        </v-btn>-->
+
+                      <v-btn
+
+                          :href="recipe.sourceUrl"
+                          text
                       >
-                        <v-card-title>{{recipe.title}}</v-card-title>
-                      </v-img>
+                        <!--                            @click = ""-->
+                        Cook
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-item>
+              </v-col>
+            </v-row>
+          </v-container>
 
-                      <v-card-subtitle class="pb-0">
-                        {{ recipe.spoonacularSourceUrl }}
-                      </v-card-subtitle>
-
-                      <v-card-text class="text--primary">
-                        <div>Whitehaven Beach</div>
-
-                        <div>Whitsunday Island, Whitsunday Islands</div>
-                      </v-card-text>
-
-                      <v-card-actions>
-                        <v-btn
-                            color="orange"
-                            text
-                        >
-                          Share
-                        </v-btn>
-
-                        <v-btn
-                            color="orange"
-                            text
-                        >
-                          Explore
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-item>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-item-group>
         </div>
-
 
       </div>
     </section>
@@ -97,43 +114,6 @@
   </div>
   </body>
 </template>
-
-        <!-- input field -->
-
-<!--        <div class="field-header-box">-->
-<!--          <div class="inputField-header">-->
-<!--            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"-->
-<!--                   @keyup.enter="addItem"/>-->
-<!--            <label for="inputTextField" class="formLabel">-->
-<!--              Add here ...-->
-<!--            </label>-->
-<!--          </div>-->
-<!--        </div>-->
-
-        <!-- Recipe element -->
-
-
-
-
-
-
-        <!-- response element -->
-
-<!--        <div class="item-section" v-show="items.length" v-cloak>-->
-<!--          <ul class="item-list">-->
-<!--            <li v-for="item in items"-->
-<!--                class="item"-->
-<!--                :key="item.id">-->
-<!--              <div class="view">-->
-<!--                <label class="item-name" @dblclick="editItem(item)">-->
-<!--                  <span class="item-name-fame">{{ item.name.toUpperCase() }} </span>-->
-<!--                  <span class="item-information-frame">{{ item.quantity }} {{ item.unit.toLowerCase() }}</span>-->
-<!--                </label>-->
-<!--                <button class="destroy" @click="removeItem(item)"></button>-->
-<!--              </div>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--        </div>-->
 
 <script>
 
@@ -148,6 +128,7 @@ const Recipes = {
   // app initial state
   data: function () {
     return {
+      items: [],
       recipes: [],
       loading: true,
       error: null,
@@ -314,12 +295,14 @@ body{
 /* item section */
 
 .item-section{
-  z-index: 0;
-  position: center;
+  z-index: 2;
+  position: absolute;
+  top: 80%;
+  left: 50%;
   width: 0;
   height: 0;
   font-size: 20px;
-  margin-left: 0px;
+  margin-left: 30px;
   border: 1px solid black;
 }
 
