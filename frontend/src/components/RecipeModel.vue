@@ -316,11 +316,11 @@ body{
 
 /* Workaround for below WQHD resolution */
 
-@media screen and (max-height: 1400px) {
-  .formLabel{
-    opacity: 0;
-  }
-}
+//@media screen and (max-height: 1400px) {
+//  .formLabel{
+//    opacity: 0;
+//  }
+//}
 
 /* item section */
 

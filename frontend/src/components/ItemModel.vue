@@ -94,6 +94,8 @@
             </v-col>
           </v-row>
         </div>
+        
+
 
         <!-- response element -->
 
@@ -138,6 +140,8 @@ const Items = {
     return {
       items: [],
       newItem: '',
+      newQuantity: 0,
+      newUnit: '',
       editedItem: null,
       loading: true,
       error: null,
@@ -163,29 +167,29 @@ const Items = {
       return this.activeUser ? this.activeUser.email : ''
     },
     inputPlaceholder: function () {
-      return this.activeUser ? this.activeUser.given_name + ', what do you want to add?' : 'What needs to be added'
+      return this.activeUser ? this.activeUser.given_name + ', What do you want to add?' : 'What needs to be added?'
     }
   },
 
   methods: {
     addItem: function () {
-      var value = this.newItem && this.newItem.trim()
-      if (!value) {
+      const addableItem = this.newItem && this.newItem.trim();
+      const addableQuantity = parseInt(this.newQuantity);
+      const addableUnit = this.newUnit;
+      if (!addableItem) {
         return
       }
 
-      var components = value.split(' ')
-
-      api.createNew(components[0],
-          parseInt(components[1].replace(/[^\d.]/g, '')),
-          components[1].replace(/[0-9]/g, '') === 'ml' ? 'MILLILETERS' : "GRAMMS"
+      api.createNew(addableItem,
+          addableQuantity,
+          addableUnit
       ).then((response) => {
         this.$log.debug("New item created:", response);
         this.items.push({
           id: response.data.id,
-          name: components[0],
-          quantity: parseInt(components[1].replace(/[^\d.]/g, '')),
-          unit: components[1].replace(/[0-9]/g, '') === 'MILLILETERS' ? 'ml' : 'g'
+          name: addableItem,
+          quantity: addableQuantity,
+          unit: addableUnit
         })
       }).catch((error) => {
         this.$log.debug(error);
@@ -216,10 +220,6 @@ const Items = {
 }
 export default Items
 </script>
-
-
-
-
 
 
 <style lang="scss">
@@ -284,7 +284,7 @@ body{
   position: relative;
   z-index: 5;
   width: 20vh;
-  height: 3vh;
+  height: 2vh;
 }
 
 .newItemName {
