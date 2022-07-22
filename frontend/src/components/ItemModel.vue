@@ -35,13 +35,64 @@
         <!-- input field -->
 
         <div class="field-header-box">
-          <div class="inputField-header">
-            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"
-                   @keyup.enter="addItem"/>
-            <label for="inputTextField" class="formLabel">
-              Add here ...
-            </label>
-          </div>
+<!--          <div class="inputField-header">-->
+<!--            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"-->
+<!--                   @keyup.enter="addItem"/>-->
+<!--            <label for="inputTextField" class="formLabel">-->
+<!--              Add here ...-->
+<!--            </label>-->
+          <v-row>
+            <v-col cols="3">
+              <v-text-field
+                  label="Ingredient"
+                  value=""
+                  v-model="newItem"
+                  @keyup.enter="addItem"
+                  require
+              ></v-text-field>
+            </v-col>
+            <v-col cols="2">
+              <v-text-field
+                  label="Quantity"
+                  required
+                  v-model="newQuantity"
+                  @keyup.enter="addItem"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="1">
+                <p>Unit</p>
+
+                <v-btn-toggle
+                    v-model="newUnit"
+                    tile
+                    color="deep-purple accent-3"
+                    group
+                    mandatory
+
+                >
+                  <v-btn value="units">
+                    units
+                  </v-btn>
+
+                  <v-btn value="g">
+                    g
+                  </v-btn>
+
+                  <v-btn value="ml">
+                    ml
+                  </v-btn>
+
+                </v-btn-toggle>
+            </v-col>
+            <v-col cols="1">
+<!--              <v-btn-->
+<!--                  elevation="2"-->
+<!--                  fab-->
+<!--                  @click="addItem"-->
+<!--              ><v-icon>mdi-plus</v-icon>-->
+<!--              </v-btn>-->
+            </v-col>
+          </v-row>
         </div>
 
         <!-- response element -->
@@ -197,7 +248,7 @@ export default Items
 body{
   margin: 0;
   padding: 0;
-  background-color: #213737;
+  background-color: #006064;
 }
 
 .main {
@@ -208,7 +259,7 @@ body{
   justify-content: center;
   align-items: center;
   font-size: 1.25vh;
-  background-color: #213737;
+  background-color: #006064;
 }
 
 /* navbar-background */
@@ -218,7 +269,7 @@ body{
   left: 0;
   top: 0;
   z-index: 3;
-  background: #213737;
+  background: #006064;
   width: 100vw;
   height: 15vh;
 }
@@ -226,15 +277,7 @@ body{
 /* input field styling */
 
 .field-header-box{
-  z-index: 3;
-  position: fixed;
-  width: 100vw;
-  height: 5vh;
-  left: 0;
-  top: 10vh;
-  display: grid;
-  align-content: center;
-  justify-content: center;
+  color: white
 }
 
 .inputField-header {
@@ -258,7 +301,7 @@ body{
   outline: none;
   padding: 0.5vh;// size of font
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); // 0.5 size of font and 1.5 size of font
-  background: #213737;
+  background: #006064;
 }
 
 .newItemName:hover {

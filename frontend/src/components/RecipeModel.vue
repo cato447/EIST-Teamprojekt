@@ -215,7 +215,7 @@ export default Recipes
 body{
   margin: 0;
   padding: 0;
-  background-color: #213737;
+  background-color: #006064;
 }
 
 .main {
@@ -226,7 +226,7 @@ body{
   justify-content: center;
   align-items: center;
   font-size: 1.25vh;
-  background-color: #213737;
+  background-color: #006064;
 }
 
 /* navbar-background */
@@ -236,30 +236,30 @@ body{
   left: 0;
   top: 0;
   z-index: 3;
-  background: #213737;
+  background: #006064;
   width: 100vw;
   height: 15vh;
 }
 
 /* input field styling */
 
-.field-header-box{
-  z-index: 3;
-  position: fixed;
-  width: 100vw;
-  height: 5vh;
-  left: 0;
-  top: 10vh;
-  display: grid;
-  align-content: center;
-  justify-content: center;
-}
+//.field-header-box{
+//  z-index: 3;
+//  position: center;
+//  width: 200vw;
+//  height: 5vh;
+//  left: 0;
+//  top: 10vh;
+//  display: grid;
+//  align-content: center;
+//  justify-content: center;
+//}
 
 .inputField-header {
   position: relative;
   z-index: 5;
   width: 20vh;
-  height: 3vh;
+  height: 2vh;
 }
 
 .newItemName {
@@ -276,7 +276,7 @@ body{
   outline: none;
   padding: 0.5vh;// size of font
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); // 0.5 size of font and 1.5 size of font
-  background: #213737;
+  background: #006064;
 }
 
 .newItemName:hover {
