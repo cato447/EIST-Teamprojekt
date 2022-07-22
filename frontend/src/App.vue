@@ -1,3 +1,5 @@
+
+
 <script>
 import ItemModel from "@/components/ItemModel";
 import LoginPage from "@/components/LoginPage";
@@ -33,7 +35,30 @@ export default {
 </script>
 
 <template>
-  <component :is="currentView" />
+
+
+
+  <v-app
+      :is="currentView"
+  >
+    <v-navigation-drawer
+        v-model="drawer"
+        absolute
+        bottom
+        temporary
+    >
+      <v-list-item>
+        Test
+      </v-list-item>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <!-- -->
+    </v-app-bar>
+    <v-main>
+
+    </v-main>
+  </v-app>
 </template>
 
 
