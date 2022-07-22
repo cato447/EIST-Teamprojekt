@@ -30,63 +30,81 @@
           </ul>
         </div>
 
-        <div class="nav-background"/>
+
 
         <!-- input field -->
 
-          <v-item-group>
-              <v-row>
-                <v-col
-                    v-for="recipe in recipes"
-                    :key="recipe.id"
-                    cols="4"
-                    md="3"
-                >
-                  <v-item>
-                    <v-card
-                        class="mx-auto"
-                        max-width="400"
+        <div>
+
+          <v-container
+              fluid
+              dark
+              style="background-color: transparent; height: 100%"
+          >
+            <v-row
+                align="align">
+              <v-col
+                  v-for="recipe in recipes"
+                  :key="recipe.id"
+                  cols="4"
+                  sm="3"
+              >
+                <v-item>
+                  <v-card
+                      class="pa-2"
+                      min-width="350"
+                      max-width="350"
+                      min-height="400"
+                      max-height="400"
+                      tile
+                      rounded = true
+                      color="#385F73"
+                      dark
+                  >
+                    <v-img
+                        class="white--text align-end"
+                        height="200px"
+                        :src="recipe.image"
                     >
-                      <v-img
-                          class="white--text align-end"
-                          height="200px"
-                          :src="recipe.image"
+                    </v-img>
+
+                    <v-card-title
+                        style="word-break: break-word"
+                    >{{ recipe.title }}</v-card-title>
+                    <v-card-subtitle class="pb-0">
+                      Ready in {{ recipe.readyInMinutes }} minutes
+                    </v-card-subtitle>
+
+                    <!--                      <v-card-text class="text&#45;&#45;primary">-->
+                    <!--                        <div>Whitehaven Beach</div>-->
+
+                    <!--                        <div>Whitsunday Island, Whitsunday Islands</div>-->
+                    <!--                      </v-card-text>-->
+
+                    <v-card-actions>
+                      <!--                        <v-btn-->
+                      <!--                            color="orange"-->
+                      <!--                            text-->
+                      <!--                        >-->
+                      <!--                          Share-->
+                      <!--                        </v-btn>-->
+
+                      <v-btn
+
+                          :href="recipe.sourceUrl"
+                          text
                       >
-                      </v-img>
+                        <!--                            @click = ""-->
+                        Cook
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-item>
+              </v-col>
+            </v-row>
+          </v-container>
 
-                      <v-card-title>{{recipe.title}}</v-card-title>
-                      <v-card-subtitle class="pb-0">
-                        Ready in {{ recipe.readyInMinutes }} minutes
-                      </v-card-subtitle>
-
-                      <v-card-text class="text--primary">
-                        <div>Whitehaven Beach</div>
-
-                        <div>Whitsunday Island, Whitsunday Islands</div>
-                      </v-card-text>
-
-                      <v-card-actions>
-<!--                        <v-btn-->
-<!--                            color="orange"-->
-<!--                            text-->
-<!--                        >-->
-<!--                          Share-->
-<!--                        </v-btn>-->
-
-                        <v-btn
-                            color="orange"
-                            text
-                            >
-<!--                            @click = ""-->
-                          Explore
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-item>
-                </v-col>
-              </v-row>
-          </v-item-group>
-
+        </div>
 
       </div>
     </section>
@@ -94,43 +112,6 @@
   </div>
   </body>
 </template>
-
-        <!-- input field -->
-
-<!--        <div class="field-header-box">-->
-<!--          <div class="inputField-header">-->
-<!--            <input class="newItemName" id="inputTextField" autofocus autocomplete="off" placeholder="Add here..." v-model="newItem"-->
-<!--                   @keyup.enter="addItem"/>-->
-<!--            <label for="inputTextField" class="formLabel">-->
-<!--              Add here ...-->
-<!--            </label>-->
-<!--          </div>-->
-<!--        </div>-->
-
-        <!-- Recipe element -->
-
-
-
-
-
-
-        <!-- response element -->
-
-<!--        <div class="item-section" v-show="items.length" v-cloak>-->
-<!--          <ul class="item-list">-->
-<!--            <li v-for="item in items"-->
-<!--                class="item"-->
-<!--                :key="item.id">-->
-<!--              <div class="view">-->
-<!--                <label class="item-name" @dblclick="editItem(item)">-->
-<!--                  <span class="item-name-fame">{{ item.name.toUpperCase() }} </span>-->
-<!--                  <span class="item-information-frame">{{ item.quantity }} {{ item.unit.toLowerCase() }}</span>-->
-<!--                </label>-->
-<!--                <button class="destroy" @click="removeItem(item)"></button>-->
-<!--              </div>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--        </div>-->
 
 <script>
 
@@ -145,6 +126,7 @@ const Recipes = {
   // app initial state
   data: function () {
     return {
+      items: [],
       recipes: [],
       loading: true,
       error: null,
@@ -153,27 +135,59 @@ const Recipes = {
   },
 
   mounted() {
-    api.getRecipesForFridge()
-        .then(response => {
-          this.$log.debug("Data loaded: ", response.data)
-          this.recipes = response.data
-        })
-        .catch(error => {
-          this.$log.debug(error)
-          this.error = "Failed to load recipes"
-        })
-        .finally(() => this.loading = false)
+    this.populateRecipes()
   },
 
+  methods: {
+    populateFromFridge() {
+      api.getRecipesForFridge()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.recipes = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load recipes"
+          })
+          .finally(() => this.loading = false)
+    },
+
+    populateRandom() {
+      api.getRandom()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.recipes = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load recipes"
+          })
+          .finally(() => this.loading = false)
+    },
+
+    populateRecipes() {
+      api.getAll()
+          .then(response => {
+            this.$log.debug("Data loaded: ", response.data)
+            this.items = response.data
+          })
+          .catch(error => {
+            this.$log.debug(error)
+            this.error = "Failed to load items"
+          })
+          .finally(() => {
+            if (this.items.length > 3) {
+              this.populateFromFridge()
+            } else {
+              this.populateRandom()
+            }
+          })
+    }
+  }
 
 }
 export default Recipes
 </script>
-
-
-
-
-
 
 <style lang="scss">
 
@@ -201,7 +215,7 @@ export default Recipes
 body{
   margin: 0;
   padding: 0;
-  background-color: #213737;
+  background-color: #006064;
 }
 
 .main {
@@ -212,7 +226,7 @@ body{
   justify-content: center;
   align-items: center;
   font-size: 1.25vh;
-  background-color: #213737;
+  background-color: #006064;
 }
 
 /* navbar-background */
@@ -222,30 +236,30 @@ body{
   left: 0;
   top: 0;
   z-index: 3;
-  background: #213737;
+  background: #006064;
   width: 100vw;
   height: 15vh;
 }
 
 /* input field styling */
 
-.field-header-box{
-  z-index: 3;
-  position: fixed;
-  width: 100vw;
-  height: 5vh;
-  left: 0;
-  top: 10vh;
-  display: grid;
-  align-content: center;
-  justify-content: center;
-}
+//.field-header-box{
+//  z-index: 3;
+//  position: center;
+//  width: 200vw;
+//  height: 5vh;
+//  left: 0;
+//  top: 10vh;
+//  display: grid;
+//  align-content: center;
+//  justify-content: center;
+//}
 
 .inputField-header {
   position: relative;
   z-index: 5;
   width: 20vh;
-  height: 3vh;
+  height: 2vh;
 }
 
 .newItemName {
@@ -262,7 +276,7 @@ body{
   outline: none;
   padding: 0.5vh;// size of font
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4); // 0.5 size of font and 1.5 size of font
-  background: #213737;
+  background: #006064;
 }
 
 .newItemName:hover {
@@ -311,12 +325,14 @@ body{
 /* item section */
 
 .item-section{
-  z-index: 0;
-  position: center;
+  z-index: 2;
+  position: absolute;
+  top: 80%;
+  left: 50%;
   width: 0;
   height: 0;
   font-size: 20px;
-  margin-left: 0px;
+  margin-left: 30px;
   border: 1px solid black;
 }
 

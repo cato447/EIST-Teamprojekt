@@ -14,7 +14,7 @@ export default {
 
 <style lang="scss">
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200&display=swap");
 
 *,
 *::before,
@@ -30,7 +30,7 @@ export default {
   justify-content: center;
   align-items: center;
   align-content: space-between;
-  background-color: #213737;
+  background-color: #006064;
 }
 
 .text {
@@ -83,7 +83,7 @@ h1::after{
 }
 
 h1::before{
-  background: #213737;
+  background: #006064;
   animation: shifteffect 4s steps(22) forwards;
 }
 
