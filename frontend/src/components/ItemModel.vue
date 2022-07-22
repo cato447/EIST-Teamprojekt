@@ -49,6 +49,7 @@
                   v-model="newItem"
                   @keyup.enter="addItem"
                   require
+                  dark
               ></v-text-field>
             </v-col>
             <v-col cols="2">
@@ -57,6 +58,7 @@
                   required
                   v-model="newQuantity"
                   @keyup.enter="addItem"
+                  dark
               ></v-text-field>
             </v-col>
             <v-col cols="1">
@@ -276,15 +278,27 @@ body{
 
 /* input field styling */
 
-.field-header-box{
-  color: white
-}
+
+
 
 .inputField-header {
   position: relative;
   z-index: 5;
   width: 20vh;
   height: 2vh;
+}
+
+.field-header-box{
+  z-index: 3;
+  position: fixed;
+  width: 100vw;
+  height: 5vh;
+  left: 0;
+  top: 10vh;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  color: white
 }
 
 .newItemName {

@@ -41,20 +41,6 @@ export default {
   <v-app
       :is="currentView"
   >
-    <v-navigation-drawer
-        v-model="drawer"
-        absolute
-        bottom
-        temporary
-    >
-      <v-list-item>
-        Test
-      </v-list-item>
-    </v-navigation-drawer>
-
-    <v-app-bar app>
-      <!-- -->
-    </v-app-bar>
     <v-main>
 
     </v-main>

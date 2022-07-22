@@ -81,7 +81,8 @@
                     <!--                        <div>Whitsunday Island, Whitsunday Islands</div>-->
                     <!--                      </v-card-text>-->
 
-                    <v-card-actions>
+                    <v-card-actions
+                    >
                       <!--                        <v-btn-->
                       <!--                            color="orange"-->
                       <!--                            text-->
@@ -90,7 +91,6 @@
                       <!--                        </v-btn>-->
 
                       <v-btn
-
                           :href="recipe.sourceUrl"
                           text
                       >

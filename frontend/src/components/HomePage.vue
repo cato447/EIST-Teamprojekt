@@ -8,31 +8,31 @@
 
         <!-- navbar -->
 
-        <header class="navbar-header">
-          <div class="logo">
-            <a>Home</a>
-          </div>
+<!--        <header class="navbar-header">-->
+<!--          <div class="logo">-->
+<!--            <a>Home</a>-->
+<!--          </div>-->
 
-          <input type="checkbox" class="menu-btn" id="menu-btn">
-          <label for="menu-btn" class="menu-icon">
-            <span class="menu-icon__line"></span>
-          </label>
+<!--          <input type="checkbox" class="menu-btn" id="menu-btn">-->
+<!--          <label for="menu-btn" class="menu-icon">-->
+<!--            <span class="menu-icon__line"></span>-->
+<!--          </label>-->
 
-          <ul class="nav-links">
-            <li class="nav-link">
-              <a href="#">Profile</a>
-            </li>
-            <li class="nav-link">
-              <a href="#">Storage</a>
-            </li>
-            <li class="nav-link">
-              <a href="#">Recipes</a>
-            </li>
-            <li class="nav-link">
-              <a href="#">About</a>
-            </li>
-          </ul>
-        </header>
+<!--          <ul class="nav-links">-->
+<!--            <li class="nav-link">-->
+<!--              <a href="#">Profile</a>-->
+<!--            </li>-->
+<!--            <li class="nav-link">-->
+<!--              <a href="#">Storage</a>-->
+<!--            </li>-->
+<!--            <li class="nav-link">-->
+<!--              <a href="#">Recipes</a>-->
+<!--            </li>-->
+<!--            <li class="nav-link">-->
+<!--              <a href="#">About</a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </header>-->
     </div>
   </div>
 

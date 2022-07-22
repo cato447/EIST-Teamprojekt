@@ -120,6 +120,7 @@ export default {
 .logo {
   left: -3vh;
   top: 1vh;
+  color: white;
 }
 
 .logo a {
