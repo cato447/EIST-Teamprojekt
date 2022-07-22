@@ -4,7 +4,7 @@ const SERVER_URL = 'http://localhost:9000'
 
 const instance = axios.create({
     baseURL : SERVER_URL,
-    timeout: 1000
+    timeout: 0
 })
 
 export default {
